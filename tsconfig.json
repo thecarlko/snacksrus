@@ -1,0 +1,23 @@
+
+
+
+{
+    "compilerOptions": 
+    {
+        "jsx": "react",
+        "outDir": "src/javascript", 
+        // "module": "CommonJS", 
+        "module": "ESNext", 
+        "target": "esnext",
+        "moduleResolution": "node",
+    },
+    "exclude": 
+    [
+        "node_modules",
+        "public",
+        "assets",
+    ]
+}
+
+
+
