@@ -1,7 +1,7 @@
 {
-  "name": "wavyfy",
+  "name": "template",
   "version": "1.0.0",
-  "description": "<!-- PROJECT LOGO --> <br /> <div align=\"center\">   <a href=\"https://github.com/othneildrew/Best-README-Template\">     <img src=\"images/logo.png\" alt=\"Logo\" width=\"80\" height=\"80\">   </a>",
+  "description": "",
   "main": "webpack.config.js",
   "dependencies": {
     "@types/node": "^17.0.34",
@@ -31,6 +31,6 @@
     "test": "test"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC"
+  "author": "Carl Omondi",
+  "license": "MIT"
 }

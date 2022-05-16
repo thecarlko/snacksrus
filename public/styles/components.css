@@ -1,0 +1,230 @@
+
+
+
+
+
+
+
+
+/* #region Chip */
+div.chip-bar
+{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+div.chip 
+{
+    display: flex; 
+    align-items: center; 
+    justify-content: center;
+
+    width: max-content;
+    padding: 0.15rem 0.75rem; 
+
+    cursor: pointer;
+
+    transition-property: background-color, color;
+    transition-duration: 300ms;
+    transition-property: ease;
+}
+
+p.chip.selected 
+{
+    background-color: var(--foreground);
+    color: var(--background);
+}
+
+div.chip > div.icon 
+{
+    width: 1rem;
+    height: 1rem;
+
+    stroke-width: 1px;
+}
+
+div.chip > p 
+{
+    padding: 0px 0.1rem; 
+    
+    text-align: center;
+}
+/* #endregion */
+
+/* #region Stepper */
+div.stepper 
+{
+    display: flex; 
+    align-items: center;
+    justify-content: space-between;
+
+    width: max-content;
+}
+
+div.stepper > input 
+{
+    width: 2rem;
+    height: 1rem; 
+
+    text-align: center;
+    pointer-events: none;
+}
+
+div.stepper > div.icon 
+{
+    cursor: pointer;
+}
+
+div.stepper > .icon.danger
+{
+    stroke: var(--error);
+}
+
+div.stepper > div.icon:disabled
+{
+    opacity: 24%;
+    cursor: default;
+    pointer-events: none; 
+}
+/* #endregion */
+
+/* #region Scrollview */
+div.scrollview 
+{
+    position: relative;
+    display: flex; 
+    align-items: center; 
+    justify-content: center;
+
+    width: 100%; 
+    height: 100%;
+}
+
+div.scrollview > div.viewport 
+{
+    position: absolute; 
+    top: 0px; 
+    left: 0px;
+    bottom: 0px; 
+    right: 0px; 
+
+    height: 100%; 
+    width: 100%;
+
+    overflow: hidden;
+
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;
+}
+
+div.scrollview > div.viewport::-webkit-scrollbar 
+{
+    display: none;
+}
+  
+
+div.scrollview.horizontal > div.viewport
+{
+    display: flex; 
+    align-items: center; 
+    justify-content: flex-start;
+
+    overflow-x: scroll;
+}
+
+div.scrollview.vertical > div.viewport 
+{
+    display: flex; 
+    align-items: center; 
+    justify-content: flex-start;
+
+    flex-direction: column;
+    overflow-y: scroll;
+}
+
+div.scrollview > div.viewport > div.content 
+{
+    width: unset; 
+    height: unset;
+}
+
+div.scrollview.horizontal > div.viewport > div.content 
+{
+    height: 100%;
+    width: min-content;
+
+    display: flex; 
+    align-items: center; 
+    justify-content: flex-start;
+}
+
+div.scrollview.vertical > div.viewport > div.content 
+{
+    width: 100%;
+    height: min-content;
+}
+/* #endregion */
+
+/* #region Input Field */
+.inputfield
+{
+    width: 280px; 
+    position: relative;
+
+    border-radius: 0.5rem;
+    background-color: var(--highlight);
+
+    transition: all 300ms; 
+}
+
+/* .inputfield > label 
+{
+    position: absolute; 
+    left: 10px; 
+    top: 14px; 
+    transition: all 200ms;
+    
+    padding: 0px 2px; 
+    z-index: 1; 
+    
+    color: var(--gray);
+}
+.inputfield > label::before
+{
+    content: "";
+    height: 5px; 
+    
+    background: var(--highlight);
+    position: absolute; 
+    left: 0px; 
+    top: 10px;
+    width: 100%; 
+    z-index: -1;
+} */
+
+.inputfield > input 
+{
+    width: 100%; 
+    height: 100%; 
+    
+    padding: 0.6rem 0.8rem; ; 
+}
+
+
+/* .inputfield > input:focus + .inputfield > label, 
+.filled 
+{
+    top: -10px; 
+    color: pink; 
+    font-size: 0.8rem;
+} */
+
+.inputfield > input::placeholder
+{
+    color: var(--gray); 
+}
+
+/* #endregion */
+
+

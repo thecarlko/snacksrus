@@ -2,6 +2,7 @@
 
 
 
+import * as React from "react"
 
 
 interface INavBarProperties
@@ -25,6 +26,8 @@ class NavBar extends React.Component<INavBarProperties, INavBarStates>
         )
     }
 }
+
+export { NavBar }
 
 
 

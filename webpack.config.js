@@ -18,10 +18,6 @@ module.exports =
     devServer: 
     {
         port: "3011",
-        static: ["./public/"],
-        // open: true,
-        // hot: true ,
-        // liveReload: true
     },
     // watch: true,
     // watchOptions:
