@@ -3,42 +3,45 @@
 
 
 
-import * as React from "react";
+import * as React from "react"
 
 
-enum scrollDirection 
+enum Axis
 {
-    horizontal = "horizontal", 
-    vertical = "vertical", 
-    all = "horizontal vertical"
+    horizontal = `horizontal`, 
+    vertical = `vertical`, 
+    both = `horizontal vertical`
 }
 
-interface scrollviewProps
-{
-    id?: string, 
-    classes?: string, 
 
-    direction: scrollDirection,
-    content: JSX.Element; 
+interface IScrollviewProperties
+{
+    axes : Axis, 
+    content: React.ReactNode
 }
 
- 
-/*
-    - Clean typescript supported scrollview element
-    - Lets user scroll the page in either or all 2d orientations
-*/
-class Scrollview extends React.Component<scrollviewProps>
+interface IScrollviewStates 
 {
 
-    constructor(props : scrollviewProps)
+}
+
+class Scrollview extends React.Component<IScrollviewProperties, IScrollviewStates>
+{
+
+    constructor(props: IScrollviewProperties)
     {
         super(props); 
+
+        this.state = 
+        {
+             
+        }
     }
 
-    render(): React.ReactNode
+    render(): React.ReactNode 
     {
         return(
-            <div id={ this.props.id } className={`scrollview ${this.props.direction} ${(this.props.classes ? this.props.classes : ``)}`}>
+            <div className={`scrollview ${this.props.axes}`}>
             <div className="viewport">
             <div className="content">
                 { this.props.content }
@@ -51,7 +54,7 @@ class Scrollview extends React.Component<scrollviewProps>
 
 
 
-export { Scrollview, scrollDirection }
+export { Axis, Scrollview }
 
 
 

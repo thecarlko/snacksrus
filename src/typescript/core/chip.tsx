@@ -4,44 +4,48 @@
 
 
 
+
 import * as React from "react";
 
 
 
-interface chipElementProps
+interface IChipProperties
 {
-    label: string, 
-    active? : boolean, 
-    onClick?: () => void; 
+    label: string; 
+    icon? : React.ReactNode; 
 }
 
-
-class Chip extends React.Component<chipElementProps>
+interface IChipStates 
 {
-    constructor(props: chipElementProps)
+
+}
+
+class Chip extends React.Component<IChipProperties, IChipStates>
+{
+
+    constructor(props: IChipProperties)
     {
-        super(props);
+        super(props); 
+
+        this.state = 
+        {
+             
+        }
     }
 
-    render()
+    render(): React.ReactNode 
     {
-        return (
-            <p className={ `chip ${(this.props.active) ? "active" : ""}` } onClick={ () => 
-            {
-                if (this.props.onClick) { this.onClickEvent();  }
-            }}>
-                {this.props.label}
-            </p>
+        return(
+            <div className="chip">
+                <div className="icon">{this.props.icon}</div>
+                <p>{ this.props.label }</p>
+            </div>
         )
     }
-
-    onClickEvent()
-    {
-        if (this.props.onClick) { this.props.onClick();  }
-    }
-
 }
 
-export { Chip, chipElementProps } 
+
+export { Chip }
+
 
 
