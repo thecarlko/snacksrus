@@ -3,8 +3,15 @@
 
 
 <!-- PROJECT LOGO -->
-<br />
+
+
+[![Profile][license-shield]][https://open.spotify.com/user/m0va21hclzul8di0atufe0vob]
+[![MIT License][license-shield]][https://github.com/cxrlko/template-react-app/blob/master/LICENSE.txt]
+[![LinkedIn][linkedin-shield]][https://www.linkedin.com/in/carlkomondi/]
+
+
 <div align="center">
+
   <a href="https://github.com/othneildrew/Best-README-Template">
     <img src="images/logo.png" alt="Logo" width="80" height="80">
   </a>
