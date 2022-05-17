@@ -5,11 +5,11 @@
 <!-- PROJECT LOGO -->
 
 
-[![Profile][license-shield]][https://open.spotify.com/user/m0va21hclzul8di0atufe0vob]
-[![MIT License][license-shield]][https://github.com/cxrlko/template-react-app/blob/master/LICENSE.txt]
-[![LinkedIn][linkedin-shield]][https://www.linkedin.com/in/carlkomondi/]
+[![Profile][https://img.shields.io/github/stars/othneildrew/Best-README-Template.svg]][https://open.spotify.com/user/m0va21hclzul8di0atufe0vob]
+[![MIT License][https://img.shields.io/github/license/othneildrew/Best-README-Template.svg]][https://github.com/cxrlko/template-react-app/blob/master/LICENSE.txt]
+[![LinkedIn][https://img.shields.io/badge/-LinkedIn-black.svg]][https://www.linkedin.com/in/carlkomondi/]
 
-
+</br>
 <div align="center">
 
   <a href="https://github.com/othneildrew/Best-README-Template">
