@@ -2,8 +2,8 @@
 
 import * as React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { Home } from "../home/home";
-import { NavBar } from "../nav/navbar";
+import { Home } from "../views/home/home";
+import { NavBar } from "../views/nav/navbar";
 
 
 interface IAppProperties 

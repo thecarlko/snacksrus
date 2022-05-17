@@ -12,8 +12,6 @@ import { Textfield, textfieldType } from "../../components/textfield"
 function Home() : JSX.Element
 {
     return (
-        <Scrollview axes={ Axis.vertical } content=
-        {
         <>
             <Chip label={""} />
             <Dropdown />
@@ -22,7 +20,6 @@ function Home() : JSX.Element
             <Stepper value={ 50 } max={ 100 } />
             <Textfield type={ textfieldType.text } placeholder={ "Testing placeholder" } />
         </>
-        } />
     )
 }
 
