@@ -37,7 +37,7 @@ class Chip extends React.Component<IChipProperties, IChipStates>
     {
         return(
             <div className="chip">
-                <div className="icon">{this.props.icon}</div>
+                { this.props.icon && <div className="icon">{ this.props.icon }</div> }
                 <p>{ this.props.label }</p>
             </div>
         )

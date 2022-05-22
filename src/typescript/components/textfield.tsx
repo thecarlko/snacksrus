@@ -2,6 +2,7 @@
 
 
 import * as React from "react";
+import { uuid } from "../utilities/uuid";
 
 
 
@@ -19,8 +20,8 @@ interface ITextfieldProperties
 {
     type: textfieldType,
     placeholder : string, 
-    leadIcon?: string, 
-    trailIcon?: string, 
+    leadIcon?: JSX.Element, 
+    trailIcon?: JSX.Element, 
 
     /**
      * Invoked when the user is about to type
@@ -45,43 +46,70 @@ interface ITextfieldProperties
 
 interface ITextfieldStates 
 {
-    focussed: boolean
+    focussed: boolean; 
+    error: boolean; 
 }
 
 class Textfield extends React.Component<ITextfieldProperties, ITextfieldStates>
 {
+    private id : string = uuid(); 
+
     constructor(props: ITextfieldProperties)
     {
         super(props); 
 
         this.state = 
         {
-            focussed: false
+            focussed: false, 
+            error: false
         }
+
+        this.onFocusInEvent = this.onFocusInEvent.bind(this);
+        this.onEditEvent = this.onEditEvent.bind(this);
+        this.onChangedEvent = this.onChangedEvent.bind(this); 
+        this.onCommitEvent = this.onCommitEvent.bind(this);
     }
 
     render(): React.ReactNode 
     {
         return (
+            <div className={ `textfield${ (this.state.error) ? ` error` : `` }` }>
 
+            {
+                // - Lead Icon
+                this.props.leadIcon &&
+                <div className="icon">
+                    { this.props.leadIcon }
+                </div>
+            }
 
-        <div className={`input-field ${(this.state.focussed) ? "focus" : ""}`} >
-            <p className="placeholder">{ this.props.placeholder }</p>
+            {
+                // - Inputfield
+                <div className="input">
+                    {/* { (this.state.focussed == false) ? <label htmlFor={ this.id }>{ this.props.placeholder }</label> : <></> } */}
+                    <input
+                        placeholder={ this.props.placeholder }
+                        id={ this.id }
+                        type={ this.props.type } 
+                        onFocus = { this.onFocusInEvent } 
+                        onChange = { (event) => { this.onEditEvent(event.target.value) }} 
+                        onBlur = { eve => { this.onChangedEvent(eve.target.value) }}
+                        onKeyUp = { (event) =>
+                        {
+                            if (event.key == "Enter") { this.onCommitEvent((event.target as HTMLInputElement).value) }
+                        }}
+                    />
+                </div>
+            }
 
-            { (this.props.leadIcon) && <div className="icon lead">{ this.props.leadIcon }</div> }
-            <input type={this.props.type}
-                onFocus = {this.onFocusInEvent} 
-                onChange = { (event) => { this.onEditEvent(event.target.value) }} 
-                onBlur = { eve => { this.onChangedEvent(eve.target.value) }}
-                onKeyUp = { (event) =>
-                {
-                    // Commit logic
-                    if (event.key == "Enter") { this.onCommitEvent((event.target as HTMLInputElement).value) }
-                }}
-
-            />
-            { (this.props.trailIcon) && <div className="icon trail">{ this.props.trailIcon }</div> }
-        </div>
+            {
+                //Trail Icon
+                this.props.trailIcon &&
+                <div className="icon">
+                    { this.props.trailIcon }
+                </div>
+            }
+            </div>
 
         );
     }

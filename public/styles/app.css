@@ -44,15 +44,15 @@
 
 
     --body:
+    "Inter",
     "Be Vietnam Pro", 
     "Rubik", 
-    "Inter",
     sans-serif;
     /* #endregion */
 
     /* #region Weight Styles */
     --regular: 300; 
-    --bold: 500; 
+    --bold: 600; 
     /* #endregion */
 
 }
@@ -116,7 +116,7 @@ body
     height: 100%;
 }
 
-#app 
+#root, #app
 {
     position: fixed;
     top: 0px; 
@@ -347,6 +347,13 @@ div.icon > svg
 /* #endregion */
 
 
+/* #region Articles */
+article > p
+{
+    font-size: 1.25rem;
+    margin: 1rem 0px; ;
+}
+/* #endregion */
 
 
 

@@ -17,6 +17,8 @@ enum Axis
 interface IScrollviewProperties
 {
     axes : Axis, 
+    id?: string, 
+    classes?: string,
     content: React.ReactNode
 }
 
@@ -41,7 +43,7 @@ class Scrollview extends React.Component<IScrollviewProperties, IScrollviewState
     render(): React.ReactNode 
     {
         return(
-            <div className={`scrollview ${this.props.axes}`}>
+            <div id={ (this.props.id) ? this.props.id : `` } className={`scrollview ${this.props.axes}${(this.props.classes) ? ` ${this.props.classes}` : ``}`}>
             <div className="viewport">
             <div className="content">
                 { this.props.content }

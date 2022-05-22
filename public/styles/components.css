@@ -23,6 +23,10 @@ div.chip
     width: max-content;
     padding: 0.15rem 0.75rem; 
 
+    border-radius: 2rem;
+
+    color: var(--background); 
+    background-color: var(--foreground);
     cursor: pointer;
 
     transition-property: background-color, color;
@@ -30,7 +34,12 @@ div.chip
     transition-property: ease;
 }
 
-p.chip.selected 
+.chip 
+{
+    margin-right: 0.5rem;
+}
+
+.chip.selected 
 {
     background-color: var(--foreground);
     color: var(--background);
@@ -166,65 +175,58 @@ div.scrollview.vertical > div.viewport > div.content
 }
 /* #endregion */
 
-/* #region Input Field */
-.inputfield
+/* #region Text Field */
+.textfield 
 {
+    position: relative; 
+
+    display: flex; 
+    align-items: center; 
+    justify-content: flex-start;
+
     width: 280px; 
-    position: relative;
+    height: 2rem;
 
-    border-radius: 0.5rem;
-    background-color: var(--highlight);
+    padding: 0.2rem 0.5rem; 
 
-    transition: all 300ms; 
+    border-radius: 0.5rem; 
+    border: none;
 }
 
-/* .inputfield > label 
+.textfield.error 
+{
+    border: 1px solid var(--error);
+}
+
+.textfield > .icon 
+{
+    width: 1.5rem; 
+    height: 1.5rem;
+
+    stroke: var(--foreground); 
+    stroke-width: 1;
+}
+
+.textfield > div.input 
+{
+    width: 100%;
+    height: 100%;
+
+    display: flex; 
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.textfield > div.input > label 
 {
     position: absolute; 
-    left: 10px; 
-    top: 14px; 
-    transition: all 200ms;
-    
-    padding: 0px 2px; 
-    z-index: 1; 
-    
-    color: var(--gray);
-}
-.inputfield > label::before
-{
-    content: "";
-    height: 5px; 
-    
-    background: var(--highlight);
-    position: absolute; 
-    left: 0px; 
-    top: 10px;
-    width: 100%; 
-    z-index: -1;
-} */
-
-.inputfield > input 
-{
-    width: 100%; 
-    height: 100%; 
-    
-    padding: 0.6rem 0.8rem; ; 
 }
 
-
-/* .inputfield > input:focus + .inputfield > label, 
-.filled 
+.textfield > div.input > input 
 {
-    top: -10px; 
-    color: pink; 
-    font-size: 0.8rem;
-} */
-
-.inputfield > input::placeholder
-{
-    color: var(--gray); 
+    width: 100%;
+    height: 100%;
 }
-
 /* #endregion */
 
 

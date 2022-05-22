@@ -3,13 +3,19 @@
 
 
 <!-- PROJECT LOGO -->
-# Project
+# Wavyfy
+<br>
+<br>
+<br>
 
 [![MIT License][license-shield]][license]
 [![LinkedIn][linkedin-shield]][linkedin]
 
+<br>
+<br>
+<br>
 
-</br>
+
 <div align="center">
 
   <a href="https://github.com/othneildrew/Best-README-Template">
@@ -34,13 +40,13 @@ Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nam dolor fugiat commo
 
 ## Tech Stack
 
-* [React.js](https://reactjs.org/)
-* [TypeScript](https://www.typescriptlang.org/)
+* [Spotify API](https://developer.spotify.com/documentation/web-api) (Music Data)
+* [React.js](https://reactjs.org/) (FrontEnd Framework)
+* [TypeScript](https://www.typescriptlang.org/) (Adding types to JavaScript)
+* [WebPack](https://webpack.js.org/) (App Bundler)
 
 
 ## Installation
-Here is a description of how to install
-
 ```
 npm install react --save
 npm install react-dom --save
@@ -55,13 +61,13 @@ npm install babel-core babel-loader babel-preset-env babel-preset-react --save-d
 
 ## Roadmap
 
-- [x] Add Changelog`
-- [x] Add back to top links
+- [ ] Home Page
+- [ ] Add back to top links
 - [ ] Add Additional Templates w/ Examples
 - [ ] Add "components" document to easily copy & paste sections of the readme
-- [ ] Multi-language Support
-    - [ ] Chinese
-    - [ ] Spanish
+- [ ] 
+  - [ ] 
+  - [ ] 
 
 
 
