@@ -9,49 +9,43 @@
 {
     /* #region Colors */
     /* - Semantic */
-    /* --foreground: #28293D; 
-    --accent: #313352; 
+    --foreground: #28293D; 
     --tint: #4D4F65; 
     --gray: #8F90A6; 
-    --shade: #DCDDE5; 
-    --highlight: #F2F2F5; 
-    --background: #FAFAFC;  */
+    --shade: #FFFFFF; 
+    --background: #E1E1E1; 
 
 
-    --foreground: #FAFAFC; 
+    /* --foreground: #FAFAFC; 
     --accent: #F2F2F5; 
     --tint: #DCDDE5; 
     --gray: #8F90A6; 
     --shade: #4D4F65; 
     --highlight: #313352; 
-    --background: #28293D; 
+    --background: #28293D;  */
 
     /* - Semantic */
-    --success: #39D98A; 
-    --info: #5B8DEF; 
-    --warning: #FDAC42;
+    --success: #4CAF50; 
+    --info: #388E3C; 
+    --warning: #FFB74D;
     --error: #FF5C5C; 
 
-    --brand: #3E7BFA; 
+    --brand: rgb(38, 82, 143); 
     /* #endregion */
 
     /* #region Text Styles */
     --display: 
-    "Sail",
-    "Oleo Script Swash Caps",
-    "Old Standard TT",
-    cursive;
+    "Open Sans", 
+    sans-serif;
 
 
     --body:
-    "Inter",
-    "Be Vietnam Pro", 
-    "Rubik", 
+    "Open Sans", 
     sans-serif;
     /* #endregion */
 
     /* #region Weight Styles */
-    --regular: 300; 
+    --regular: 400; 
     --bold: 600; 
     /* #endregion */
 
@@ -69,6 +63,8 @@
     stroke: inherit; 
     stroke-width: inherit;
     fill: inherit;
+
+    font-size: inherit;
 }
 
 /* #region Layout settings */
@@ -82,7 +78,7 @@ html
     stroke: var(--foreground);
 
     z-index: 0; 
-
+    font-size: 1rem;
     background-color: var(--background);
 
 }
@@ -133,44 +129,45 @@ body
 
 /* - Default Overides */
 /* #region Text */
-p.display 
+p, input, button, a, label, h1, h2, h3, h4, h5, h6
 {
-    font-size: 1.5rem;
+    font-family: var(--body);
+    font-style: normal;
+    font-weight: var(--regular);
+    line-height: 150%;
+}
+
+
+p.display, h1
+{
+    font-size: 2rem; 
     font-weight: var(--bold);
     font-family: var(--display);
 }
 
-p.heading 
+p.heading, h2
 {
-    font-size: 1.3rem;
+    font-size: 1.5rem;
     font-weight: var(--bold);
 }
 
-p.title 
+p.title, h3 
 {
     font-size: 1.25rem;
     font-weight: var(--bold);
 }
 
-p.subtitle
+p.subtitle, h4
 {
     font-size: 1.1rem;
     font-weight: var(--bold);
 }
 
-p.label
+p.label, h5
 {
     font-weight: var(--bold);
 }
 
-p, input, button, a, label
-{
-    font-family: var(--body);
-    font-style: normal;
-    font-weight: var(--regular);
-    font-size: 1rem;
-    line-height: 150%;
-}
 
 p.lead 
 {
@@ -225,6 +222,8 @@ div > img
 /* #region Links */
 a 
 {
+    color: var(--brand); 
+    font-size: 0.9rem;
     text-decoration: none;
 }
 /* #endregion */

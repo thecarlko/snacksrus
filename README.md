@@ -3,7 +3,7 @@
 
 
 <!-- PROJECT LOGO -->
-# Wavyfy
+# Word Scrambler
 <br>
 <br>
 <br>
@@ -18,16 +18,12 @@
 
 <div align="center">
 
-  <a href="https://github.com/othneildrew/Best-README-Template">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
-  </a>
+  <img width="1536" alt="project" src="https://user-images.githubusercontent.com/98195031/170782760-a131ebe1-2b20-4741-b844-eb6150e9854b.png">
 
-  <h3 align="center">Template</h3>
+  <h3 align="center">Word Scrambler</h3>
 
   <div align="center">
-    <a href="https://github.com/othneildrew/Best-README-Template">View Demo</a> ·
-    <a href="https://github.com/othneildrew/Best-README-Template/issues">Report Bug</a> ·
-    <a href="https://github.com/othneildrew/Best-README-Template/issues">Request Feature</a>
+    <a href="https://github.com/cxrlko/wordscrambler/blob/master/LICENSE.txt">Licence</a>
   </div>
 
 </div>
@@ -46,9 +42,24 @@ Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nam dolor fugiat commo
 * [WebPack](https://webpack.js.org/) (App Bundler)
 
 
+
 ## Installation
+
+Install Dependencies
 ```
+npm install typescript
 npm install react --save
+npm install webpack-dev-server
+```
+
+Run Commands
+``` 
+tsc
+npm start
+```
+
+Developer Dependencies (Not required to run application)
+```
 npm install react-dom --save
 
 npm install webpack --save
@@ -61,9 +72,9 @@ npm install babel-core babel-loader babel-preset-env babel-preset-react --save-d
 
 ## Roadmap
 
-- [ ] Home Page
-- [ ] Add back to top links
-- [ ] Add Additional Templates w/ Examples
+- [x] Home Page
+- [x] Add back to top links
+- [x] Add Additional Templates w/ Examples
 - [ ] Add "components" document to easily copy & paste sections of the readme
 - [ ] 
   - [ ] 
@@ -75,27 +86,16 @@ npm install babel-core babel-loader babel-preset-env babel-preset-react --save-d
 Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 
-
 ## Contact
 
-Your Name - [@your_twitter](https://twitter.com/your_username) - email@example.com <br>
-Project Link: [https://github.com/your_username/repo_name](https://github.com/your_username/repo_name)
+Carl Omondi - [@carlkomondi](https://www.linkedin.com/in/carlkomondi/) - carlkomondi@gmail.com <br>
+Project Link: [Github Repo](https://github.com/cxrlko/wordscrambler)
 
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 
 <!-- MARKDOWN LINKS & IMAGES -->
-<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/othneildrew/Best-README-Template.svg?style=for-the-badge
-[contributors-url]: https://github.com/othneildrew/Best-README-Template/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/othneildrew/Best-README-Template.svg?style=for-the-badge
-[forks-url]: https://github.com/othneildrew/Best-README-Template/network/members
-[stars-shield]: https://img.shields.io/github/stars/othneildrew/Best-README-Template.svg?style=for-the-badge
-[stars-url]: https://github.com/othneildrew/Best-README-Template/stargazers
-[issues-shield]: https://img.shields.io/github/issues/othneildrew/Best-README-Template.svg?style=for-the-badge
-[issues-url]: https://github.com/othneildrew/Best-README-Template/issues
-
 [license-shield]: https://img.shields.io/github/license/othneildrew/Best-README-Template.svg?style=for-the-badge
 [license]: https://github.com/cxrlko/template-react-app/blob/master/LICENSE.txt
 
