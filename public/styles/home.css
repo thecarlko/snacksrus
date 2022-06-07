@@ -1,0 +1,387 @@
+
+
+
+
+
+
+
+
+
+
+
+#home > .viewport > .content
+{
+    margin-top: 8vh;
+}
+
+
+/* #region Descriptor */
+
+
+#descriptor
+{
+    position: absolute;
+    top: 0px; 
+    right: 0px; 
+    left: 0px; 
+    
+    padding-top: 4rem; 
+}
+
+#descriptor *
+{
+    text-align: center;
+}
+
+#descriptor .instructions 
+{
+    color: var(--gray); 
+}
+
+/* Compact height settinsg */
+@media screen and (max-height: 428px)
+{
+    div#descriptor, #scrollview-inspector > .category-name
+    {
+        display: none;
+    }
+}
+
+@media screen and (min-height: 600px)
+{
+
+}
+/* #endregion */
+
+
+
+/* #region Categories */
+
+main 
+{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-between;
+
+    width: 100vw; 
+    height: 100%;
+}
+
+
+main > .scrollview 
+{
+    height: 100%; 
+}
+
+main > .scrollview > .viewport
+{
+    overflow-x: hidden;
+    height: min-content;
+}
+
+
+
+
+
+
+/* #endregion */
+
+
+
+/* #region Category Item */
+.peacock 
+{
+    width: 100vw;
+}
+
+.tail
+{
+    width: 100%;
+    height: 38vmin;
+
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+}
+
+
+.feather
+{
+    position: absolute;
+    display: flex;
+    justify-content: center;
+
+    max-width: 24vmin;
+    max-height: 24vmin;
+
+    transform-origin: bottom;
+
+    transition-property: transform;
+    transition-duration: 0.6s;
+    transition-delay: 0.2s;
+    transition-timing-function: ease-in-out;
+}
+
+.feather img 
+{
+    height: inherit; 
+    width: inherit;
+    object-fit: contain;
+}
+
+.peacock.selected .feather.secondary 
+{ 
+    transform: translateX(-18vmin) rotateZ(-30deg);
+}
+
+.peacock.selected .feather.tertiary 
+{
+    transform: translateX(18vmin) rotateZ(30deg);
+}
+
+
+
+.peacock .dropshadow
+{
+    width: 48vw;
+    height: 3vh;
+
+    margin-top: 8vh;
+    margin-left: auto;
+    margin-right: auto;
+
+    background: transparent; 
+    background: radial-gradient(50% 50% at 50% 50%, rgba(11,11,10,0.08) 0%, rgba(251,251,252,0) 100%);
+}
+/* #endregion */
+
+/* #region Scrollview Inspector */
+#scrollview-inspector
+{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+
+    margin-top: 4vh;
+}
+
+.category-name
+{
+    text-align: center;
+    color: var(--foreground);
+
+    font-size: 1.75rem;
+}
+
+.category-pagigation
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin: 1vh 0px; 
+}
+
+.category-pagigation .ellipse
+{
+    width: 8px;
+    height: 8px;
+    margin: 0px 3px;
+    
+    border: solid;
+    border-width: 1px;
+    border-radius: 100%;
+    border-color: var(--foreground);
+
+}
+
+.category-pagigation .ellipse.selected
+{
+    background-color: var(--foreground);
+}
+/* #endregion */
+
+/* #region Trailer */
+footer
+{
+    position: fixed;
+    left: 0px;
+    right: 0px; 
+    bottom: 0px; 
+
+    margin: 2vh 2rem; 
+    height: 1.5rem;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+footer > div 
+{
+    width: 100%;
+    color: var(--tint);
+    stroke: var(--tint); 
+}
+
+
+
+.trailer-leading
+{
+    display: flex;
+    align-items: center;
+    justify-content: left;
+
+    height: 100%;
+
+
+    
+}
+
+.trailer-leading, .trailer-trailing 
+{
+    min-width: 50%;
+}
+
+.trailer-leading p, .trailer-trailing p
+{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    max-width: calc(100% - calc(3rem + 2vw));
+}
+
+
+.trailer-trailing p 
+{
+    direction: rtl;
+}
+
+.location-icon
+{
+    padding-right: 4px;
+}
+
+.location-icon, .location-icon svg 
+{
+    width: 20px;
+    height: 20px;
+
+    fill: none;
+}
+
+
+
+.trailer-mid 
+{
+
+    position: absolute; 
+    z-index: 2; 
+
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    height: 100%;
+}
+
+@media screen and (pointer: coarse)
+{
+
+    /* main > .scrollview > .viewport
+    {
+        overflow-x: scroll !important;
+    } */
+
+    .trailer-mid > button
+    {
+        display: none;
+    }
+
+    .trailer-mid > p 
+    {
+        display: block;
+    }
+
+    .trailer-leading p, .trailer-trailing p
+    {
+        max-width: calc(100% - calc(3rem + 6vw));
+    }
+}
+
+@media screen and (pointer: fine) 
+{
+    
+    .trailer-mid > p 
+    {
+        display: none;
+    }
+
+    .trailer-mid > button 
+    {
+        display: block;
+    }
+}
+
+.trailer-mid > p
+{
+    color: var(--foreground); 
+}
+
+
+.trailer-mid button 
+{
+    margin: 0px 0.5vw; 
+    outline: none;
+    background-color: transparent;
+
+    stroke: var(--foreground);
+    padding: unset; ;
+
+    fill: none;
+    height: 100%;
+    width: 1.5rem;
+}
+
+.trailer-mid button[disabled="disabled"] svg
+{
+    stroke: var(--gray);
+    
+}
+
+
+.trailer-trailing
+{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    flex-grow: 2;
+}
+/* #endregion */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

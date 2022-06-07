@@ -1,6 +1,5 @@
 
-
-
+    
 
 
 
@@ -9,11 +8,12 @@
 {
     /* #region Colors */
     /* - Semantic */
-    --foreground: #28293D; 
-    --tint: #4D4F65; 
-    --gray: #8F90A6; 
-    --shade: #FFFFFF; 
-    --background: #E1E1E1; 
+    --foreground: #0B0B0A;
+    --tint: #8F90A6;
+    --gray: #C7C9D9;
+    --shade: #EBEBF0;
+    --highlight: #F6F6F7;
+    --background: #FFFFFF;
 
 
     /* --foreground: #FAFAFC; 
@@ -25,22 +25,26 @@
     --background: #28293D;  */
 
     /* - Semantic */
-    --success: #4CAF50; 
-    --info: #388E3C; 
-    --warning: #FFB74D;
-    --error: #FF5C5C; 
+    --success: #39D98A;
+    --info: #5B8DEF;
+    --warning: #FDAC42;
+    --error: #FF5C5C;
 
     --brand: rgb(38, 82, 143); 
     /* #endregion */
 
     /* #region Text Styles */
     --display: 
-    "Open Sans", 
-    sans-serif;
+    "Sail",
+    "Oleo Script Swash Caps",
+    "Old Standard TT",
+    cursive;
 
 
     --body:
-    "Open Sans", 
+    "Inter",
+    "Be Vietnam Pro", 
+    "Rubik", 
     sans-serif;
     /* #endregion */
 

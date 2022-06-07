@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { Network } from "../../admin/network";
 import { Home } from "../home/home";
 import { NavBar } from "../nav/navbar";
 
@@ -12,25 +13,25 @@ interface IAppProperties
 }
 
 
-class App extends React.Component 
+function App(props: IAppProperties)
 {
-    constructor(props: IAppProperties)
-    {
-        super(props); 
-    }
 
-    render(): React.ReactNode 
-    {
-        return (
-        <>
-            <NavBar />
 
-            <Routes>
-                <Route exact path="/" element={ <Home /> } />
-            </Routes>
-        </>
-        )
-    }
+    React.useEffect(() => 
+    {
+
+
+    }, []); 
+
+    return (
+    <>
+        <NavBar />
+
+        <Routes>
+            <Route exact index element={ <Home /> } />
+        </Routes>
+    </>
+    )
 }
 
 
