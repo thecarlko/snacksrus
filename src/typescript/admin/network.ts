@@ -3,9 +3,12 @@
 
 
 
-import { initializeApp } from "firebase/app";
+import { FirebaseApp, initializeApp } from "firebase/app";
 import { collection, getDocs, getFirestore } from "firebase/firestore";
+import { getDownloadURL, getStorage, ref } from "firebase/storage";
+import { getTokenSourceMapRange } from "typescript";
 import { Category } from "../models/category";
+import { Product } from "../models/product";
 
 const firebaseConfiguration = 
 {
@@ -21,6 +24,7 @@ const firebaseConfiguration =
 
 const FirebaseApp = initializeApp(firebaseConfiguration); 
 const Database = getFirestore(FirebaseApp);
+const Storage = getStorage(FirebaseApp);
 
 
 class Network 
@@ -51,12 +55,43 @@ class Network
     }
     // #endregion
 
+    // #region Fetch Category Products 
+    static async fetchCategoryProducts(categoryID: string)
+    {
+        let responce : Product[];
+
+        const productCollection = collection(Database, `store`, `${ categoryID }`, `items`);
+        await getDocs(productCollection)
+        .then((snapshot) =>
+        {
+            // Mapping the responce to the snapshots's documents
+            responce = snapshot.docs.map((productSnapshot) => { return new Product(productSnapshot) });
+        })
+        .catch((error) => { `Error fetching category products: ${ error }` });
+
+
+        if (!responce) { console.error(`Couldn't fetch products for ${ categoryID }`); return;  }
+        return responce; 
+    }
+    // #endregion
+
+    // #region Get Product Image Link
+    static async getProductImageLink(productID: string)
+    {
+        let responce : string = undefined; 
+
+        const imageReference = ref(Storage, `products/${ productID }.png`);
+        responce = await getDownloadURL(imageReference);
+
+        if (!responce) { console.error(`Couldn't get download url for image: ${ productID }`); return; }
+        return responce; 
+    }
+    // #endregion
+
 }
 
 
 export { Network }
-
-
 
 
 
