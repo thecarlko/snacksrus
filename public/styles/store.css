@@ -6,40 +6,29 @@
 
 
 
-
-
-html > body 
-{
-    padding-top: 4.1rem;
-    padding-bottom: 0px;
-
-    overflow: hidden;
-}
-
-main
-{
-    height: 100%;
-}
-
-main > .viewport > .content 
+#store > .viewport > .content 
 {
     position: relative; 
-    padding: 0px 8vw; 
+    padding: 0px 8vw;
 }
 
 
 #display-tag 
 {
-    position: sticky;
-    top: -15%; 
+    position: sticky; 
+    top: 12vh; 
     z-index: -1; 
 
-    height: 72vh;
+    height: 12vh;
     max-height: 460px;
     text-align: center;
 
+    margin-top: 24vh;
+    margin-bottom: 20vh;
+
     display: flex; 
     align-items: center;
+    justify-content: center;
 }
 
 #display-tag h1 
@@ -52,22 +41,19 @@ main > .viewport > .content
 /* #region Chip Bar */
 #categories-chips
 {
-
     position: sticky; 
-    top: 0px;
-    z-index: 1; 
+    top: 20vh; 
+    height: 3rem;
 
-    background-color: var(--background);
+    z-index: 5; 
 
-    margin: 0px 12vw; 
-    padding: 1rem 0px; 
+    margin: 4vh 0px; 
+
+    background-color: var(--background); ;
+
 
 }
 
-/* #categories-chips > .viewport
-{
-    overflow: visible;
-} */
 
 @media screen and (min-width: 580px)
 {
@@ -107,6 +93,7 @@ main > .viewport > .content
     max-width: 40vmin;
 
     display: none;
+
     flex-direction: column;
     align-items: center;
     justify-content: center;
@@ -121,7 +108,6 @@ main > .viewport > .content
 {
     display: flex;
 }
-
 
 #store-items .product .image 
 {

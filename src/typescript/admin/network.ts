@@ -4,7 +4,7 @@
 
 
 import { FirebaseApp, initializeApp } from "firebase/app";
-import { collection, getDocs, getFirestore } from "firebase/firestore";
+import { collection, doc, getDocs, getFirestore, setDoc } from "firebase/firestore";
 import { getDownloadURL, getStorage, ref } from "firebase/storage";
 import { getTokenSourceMapRange } from "typescript";
 import { Category } from "../models/category";
@@ -23,8 +23,8 @@ const firebaseConfiguration =
 }
 
 const FirebaseApp = initializeApp(firebaseConfiguration); 
-const Database = getFirestore(FirebaseApp);
-const Storage = getStorage(FirebaseApp);
+const database = getFirestore(FirebaseApp);
+const storage = getStorage(FirebaseApp);
 
 
 class Network 
@@ -41,7 +41,7 @@ class Network
     static async fetchCategories()
     {
         let responce : Category[] = undefined; 
-        const categoryCollection = collection(Database, `store`);
+        const categoryCollection = collection(database, `store`);
 
         await getDocs(categoryCollection)
         .then((snapshot) =>
@@ -60,7 +60,7 @@ class Network
     {
         let responce : Product[];
 
-        const productCollection = collection(Database, `store`, `${ categoryID }`, `items`);
+        const productCollection = collection(database, `store`, `${ categoryID }`, `items`);
         await getDocs(productCollection)
         .then((snapshot) =>
         {
@@ -76,19 +76,32 @@ class Network
     // #endregion
 
     // #region Get Product Image Link
-    static async getProductImageLink(productID: string)
+    static async getProductImageLink(productID: string, categoryID)
     {
         let responce : string = undefined; 
 
-        const imageReference = ref(Storage, `products/${ productID }.png`);
+        const imageReference = ref(storage, `products/${ productID }.png`);
         responce = await getDownloadURL(imageReference);
+
+        const documentReference = doc(database, `store`, categoryID, `items`, productID); 
+
+        setDoc(documentReference, 
+        {
+            imageURL: responce
+
+        }, { merge: true }); 
+
 
         if (!responce) { console.error(`Couldn't get download url for image: ${ productID }`); return; }
         return responce; 
     }
     // #endregion
 
+
+
 }
+
+
 
 
 export { Network }

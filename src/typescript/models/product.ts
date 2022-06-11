@@ -16,7 +16,7 @@ import { Color } from "../core/color";
 
 
 
-
+// #region Product
 class Product 
 {
     id: string; 
@@ -28,7 +28,7 @@ class Product
     price: number; 
     stock: number; 
 
-    imageURL: string | undefined; 
+    imageURL: string; 
     color: Color; 
 
 
@@ -46,19 +46,40 @@ class Product
         this.price = data.price; 
         this.stock = data.stock; 
 
-    }
+        this.imageURL = data.imageURL; 
 
-    async getImageURL()
-    {
-        this.imageURL = await Network.getProductImageLink(this.id); 
     }
-
-    
 
 }
+// #endregion
 
 
-export { Product }
+// #region Cart Product
+class CartProduct
+{
+    id: string; 
+
+    imageURL: string; 
+
+    quantity: number; 
+    stock: number; 
+
+    constructor(item: Product)
+    {
+        this.id = item.id; 
+
+        this.imageURL = item.imageURL; 
+
+        this.quantity = 0; 
+        this.stock = item.stock; 
+    }
+}
+// #endregion
+
+
+
+
+export { Product, CartProduct }
 
 
 

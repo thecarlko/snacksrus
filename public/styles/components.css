@@ -23,10 +23,11 @@ div.chip
     width: max-content;
     padding: 0.15rem 0.75rem; 
 
+    border: 1px solid var(--foreground);
     border-radius: 2rem;
 
     color: var(--background); 
-    background-color: var(--foreground);
+    background-color: transparent;
     cursor: pointer;
 
     transition-property: background-color, color;
@@ -39,7 +40,7 @@ div.chip
     margin-right: 0.5rem;
 }
 
-.chip.selected 
+.chip.active 
 {
     background-color: var(--foreground);
     color: var(--background);
@@ -55,9 +56,15 @@ div.chip > div.icon
 
 div.chip > p 
 {
+    color: var(--foreground);
     padding: 0px 0.1rem; 
     
     text-align: center;
+}
+
+.chip.active > p 
+{
+    color: var(--background);
 }
 /* #endregion */
 
@@ -80,8 +87,13 @@ div.stepper > input
     pointer-events: none;
 }
 
-div.stepper > div.icon 
+div.stepper > button.icon 
 {
+    width: 2rem; 
+    height: 2rem;
+
+    padding: 0.25rem;
+    background-color: transparent;
     cursor: pointer;
 }
 
@@ -90,7 +102,7 @@ div.stepper > .icon.danger
     stroke: var(--error);
 }
 
-div.stepper > div.icon:disabled
+div.stepper > button.icon:disabled
 {
     opacity: 24%;
     cursor: default;
@@ -229,7 +241,6 @@ div.scrollview.vertical > div.viewport > div.content
 }
 /* #endregion */
 
-
 /* #region Toggle */
 .toggle
 {
@@ -286,4 +297,33 @@ div.scrollview.vertical > div.viewport > div.content
 }
 /* #endregion */
 
+
+/* #region Pagigation */
+.pagigation
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin: 1vh 0px; 
+}
+
+.pagigation > .ellipse
+{
+    width: 0.5rem;
+    height: 0.5rem;
+    margin: 0px 0.2rem;
+    
+    border: solid;
+    border-width: 1px;
+    border-radius: 100%;
+    border-color: var(--foreground);
+
+}
+
+.pagigation .ellipse.selected
+{
+    background-color: var(--foreground);
+}
+/* #endregion */
 

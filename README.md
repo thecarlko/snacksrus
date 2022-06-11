@@ -47,9 +47,9 @@ Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nam dolor fugiat commo
 
 Install Dependencies
 ```
-npm install typescript
 npm install react --save
 npm install webpack-dev-server
+npm install --save typescript @types/node @types/react @types/react-dom
 ```
 
 Run Commands

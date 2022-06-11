@@ -12,58 +12,40 @@
 
 
 import * as React from "react"
+import { ProgressPlugin } from "webpack";
 import { Network } from "../../admin/network";
+import { Pagigation } from "../../components/pagigation";
 import { Axis, Scrollview } from "../../components/scrollview";
 import { Category } from "../../models/category";
+import { NavBar } from "../nav/navbar";
 import { Peacock } from "./peacock";
 
 
 
 interface IHomeProperties 
 {
-
+    cats: Category[]; 
 }
 
 
 
-function Home()
+function Home(props: IHomeProperties)
 {
 
+    const [focusIndex, setFocusIndex] = React.useState(0); 
     const [categories, setCategories] = React.useState<Category[]>([]); 
 
 
 
-    React.useEffect(() => 
-    {
-
-        setupPage(); 
-
-    }, []); 
-
-
-    // #region Setup Page 
-    const setupPage = React.useCallback( async () => 
-    {
-
-        const values  = await Network.fetchCategories(); 
-        for (const cat of values)
-        {
-            await cat.setProducts();    
-
-        }
-
-        setCategories(values); 
-
-    }, []); 
-    // #endregion
-
-
     return (
+    <>
         <main id="home">
             <Descriptor />
-            <HomeShowcase categories={ categories } />
-            <HomeFooter />
+            <HomeShowcase index={ focusIndex } setIndex={ setFocusIndex } categories={ props.cats } />
         </main>
+
+        <HomeFooter index={focusIndex} setIndex={ setFocusIndex } catCount={ props.cats.length } />
+    </>
     )
 }
 
@@ -87,6 +69,8 @@ function Descriptor()
 // #region Showcase 
 interface IHomeShowcaseProperties 
 {
+    index: number; 
+    setIndex: React.Dispatch<React.SetStateAction<number>>;
     categories: Category[]; 
 }
 
@@ -94,28 +78,87 @@ interface IHomeShowcaseProperties
 function HomeShowcase(props: IHomeShowcaseProperties) 
 {
 
-    const [focusIndex, setFocusIndex] = React.useState<number>(0); 
+    // #region Handle Window Paging
+    const handleWindowPaging = React.useCallback((event: KeyboardEvent) => 
+    {
+        if (event.key == `ArrowLeft`)
+        { 
+            if (props.index == 0) { return; } props.setIndex( props.index - 1 ); 
+
+        }
+        else if ((event.key == `ArrowRight`))
+        {
+            if (props.index == props.categories.length - 1) { return; } props.setIndex( props.index + 1 ); 
+
+        };
+    }, [props.index]); 
+    // #endregion
+
+
+
+    React.useEffect(() => 
+    {
+        window.addEventListener((`keydown`), handleWindowPaging);
+
+        return () => 
+        {
+            window.removeEventListener('keydown', handleWindowPaging);
+        }
+        
+    }, [props.index]); 
+
+
+
 
 
     return (
 
-        <Scrollview axes={ Axis.horizontal } content=
-        {
-            (props.categories) && 
-            (props.categories.map((cat, catIndex) => 
-            
-            <Peacock category={ cat } key={ catIndex } focus={ focusIndex === catIndex } />
-                
-            ))
+    <>
 
-        }/>
+    <div className="scrollview horizontal">
+    <div className="viewport">
+    <div className="content" style={{ transform: `translateX(-${ 100 * props.index }vw)` }}>
+    <>
+    {
+        (props.categories.map((cat, catIndex) => 
 
+            <Peacock key={catIndex} category={cat} focus={ props.index === catIndex } />
+
+        ))
+    }
+    </>
+    </div>
+    </div>
+    </div>
+
+    <div id="scrollview-inspector">
+    {
+        (props.categories[props.index]) &&
+        <>
+            <h1 className="category-name">{ props.categories[props.index].name }</h1>
+            <Pagigation count={ props.categories.length } focusIndex={ props.index } />
+        </>
+    }
+    </div>
+
+    
+    </>  
     )
 }
 // #endregion
 
+
+
 // #region Footer 
-function HomeFooter()
+interface IFooterProperties 
+{
+    catCount: number; 
+    index: number;
+
+    setIndex: React.Dispatch<React.SetStateAction<number>>; 
+}
+
+function HomeFooter(props: IFooterProperties)
 {
     return (
     
@@ -133,7 +176,13 @@ function HomeFooter()
         </div>
 
         <div className="trailer-mid">
-            <button className="left-page">
+            <button
+            disabled={ props.index == 0 }
+            onClick={ () => 
+            {
+                props.setIndex( props.index - 1 );
+            }}
+            className="left-page">
             <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path d="M9.57 5.93005L3.5 12.0001L9.57 18.0701" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path>
             <path d="M20.5 12H3.66998" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path>
@@ -143,7 +192,13 @@ function HomeFooter()
             <p>&prcue; swipe &sccue;</p>
 
 
-            <button className="right-page">
+            <button
+            disabled={ props.index == props.catCount - 1 }
+            onClick={ () => 
+            {
+                props.setIndex( props.index + 1 );
+            }}
+            className="right-page">
             <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path d="M14.43 5.93005L20.5 12.0001L14.43 18.0701" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path>
             <path d="M3.5 12H20.33" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path>

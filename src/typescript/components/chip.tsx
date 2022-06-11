@@ -6,43 +6,36 @@
 
 
 import * as React from "react";
+import { BlockLike } from "typescript";
 
 
 
 interface IChipProperties
 {
     label: string; 
+    selected: boolean; 
+    onClick?: (event) => void; 
     icon? : React.ReactNode; 
 }
 
-interface IChipStates 
+
+function Chip(props: IChipProperties)
 {
+    return (
 
-}
-
-class Chip extends React.Component<IChipProperties, IChipStates>
-{
-
-    constructor(props: IChipProperties)
-    {
-        super(props); 
-
-        this.state = 
+        <div
+        onClick={ (event) => 
         {
-             
-        }
-    }
+            if (props.onClick) { props.onClick(event) }
+        }}
+        className={ `chip${ (props.selected) ? ` active` : `` }` }>
+            { props.icon && <div className="icon">{ props.icon }</div> }
+            <p>{ props.label }</p>
+        </div>
 
-    render(): React.ReactNode 
-    {
-        return(
-            <div className="chip">
-                { this.props.icon && <div className="icon">{ this.props.icon }</div> }
-                <p>{ this.props.label }</p>
-            </div>
-        )
-    }
+    )
 }
+
 
 
 export { Chip }

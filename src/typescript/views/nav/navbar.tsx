@@ -9,7 +9,7 @@ import { Product } from "../../models/product";
 
 interface INavBarProperties
 {
-
+    cartCount: number; 
 }
 
 interface INavBarStates 
@@ -26,7 +26,7 @@ class NavBar extends React.Component<INavBarProperties, INavBarStates>
                 <Logo backButton={ false } />
 
                 <div className="trailing">
-                    <CartButton />
+                    <CartButton cartCount={ this.props.cartCount } />
                     <ProfileAvatar />
                 </div>
             </nav>
@@ -85,13 +85,11 @@ function Logo(props: ILogoProperties)
 // #region Cart Button 
 interface ICartButtonProperties 
 {
-
+    cartCount: number; 
 }
 
 function CartButton(props: ICartButtonProperties)
 {
-
-    const [products, setProducts] = React.useState<Product[]>([]);
 
     return (
 
@@ -107,7 +105,7 @@ function CartButton(props: ICartButtonProperties)
             </svg>
             </div>
 
-            <p id="cart-count">{ products.length }</p>
+            <p id="cart-count">{ props.cartCount }</p>
         </div>
     )
 

@@ -9,25 +9,14 @@
 
 
 
-body 
+main#vendible
 {
-    padding-bottom: 1rem !important;
-    overflow: hidden;
-
-    transition-property: background-color; 
-    transition-duration: 300ms; 
-    transition-timing-function: ease-in;
-}
-
-
-
-main 
-{
-    /* padding: 1rem 0px; 
-    margin: 1rem 0px; */
+    padding-top: 4rem;
+    padding-bottom: 2vh;
+    padding-left: 4vw; 
+    padding-right: 4vw;
 
     position: relative;
-    padding: 2vh 4vw; 
 
     height: 100%;
     width: 100%;
@@ -40,7 +29,7 @@ main
     overflow: hidden;
 }
 
-main > section 
+main#vendible > section 
 {
     width: 100%;
 }
@@ -52,7 +41,6 @@ section#inspector
     height: 4.2rem;
 }
 /* #endregion */
-
 
 /* #region Showcase */
 section#showcase 
@@ -73,7 +61,7 @@ section#showcase
     height: 100%;
     min-height: 200px;
     max-height: 620px;
-    padding: 10vh; 
+    padding: 10vmin; 
 
     display: flex; 
     align-items: center; 
@@ -84,7 +72,7 @@ section#showcase
 {
     section#showcase > div.image 
     {
-        padding: 10vmin; 
+        padding: 16vmin; 
     }
 }
 
@@ -122,9 +110,6 @@ section#showcase
 }
 /* #endregion */
 
-
-
-
 /* #region Pricing */
 section#pricing 
 {
@@ -154,7 +139,7 @@ section#pricing > div.trailing
     background-color: var(--foreground);
     color: var(--background);
 
-    scale: 1;
+    border-radius: 2rem;
 
     transition-property: background-color, color, scale;
     transition-duration: 300ms;
@@ -178,6 +163,11 @@ section#pricing > div.trailing
     body > main 
     {
         padding-bottom: 8vh;
+    }
+
+    #vendible 
+    {
+        padding-bottom: 8vh !important;
     }
 
     #cta 

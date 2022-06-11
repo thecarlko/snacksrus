@@ -12,8 +12,6 @@ import { App } from "./app";
 
 const rootElement = document.getElementById(`root`);
 
-console.log(`Hello world`)
-
 onload 
 {
     const root = createRoot(rootElement);

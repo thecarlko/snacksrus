@@ -49,8 +49,8 @@
     /* #endregion */
 
     /* #region Weight Styles */
-    --regular: 400; 
-    --bold: 600; 
+    --regular: 300; 
+    --bold: 500; 
     /* #endregion */
 
 }
@@ -113,7 +113,7 @@ body
     bottom: 0px; 
     
     width: 100%; 
-    height: 100%;
+    height: 100vh;
 }
 
 #root, #app
@@ -244,12 +244,12 @@ button
 
 button:hover
 {
-    box-shadow: 4px 2px 16px rgba(53, 104, 212, 0.12);
+    /* box-shadow: 4px 2px 16px rgba(53, 104, 212, 0.12); */
 }
 
 button:focus
 {
-    border: 2px solid rgba(40, 41, 61, 0.24);
+    /* border: 2px solid rgba(40, 41, 61, 0.24); */
 }
 
 button.secondary 
@@ -259,10 +259,11 @@ button.secondary
     background-color: var(--background);
 }
 
-button:disabled
+button:disabled, button[aria-disabled], button[disabled]
 {
     background-color: var(--shade);
-    color: var(--tint); 
+    color: var(--tint) !important; 
+    stroke: var(--tint) !important; 
 }
 /* #endregion */
 
@@ -271,6 +272,7 @@ input
 {
     background-color: transparent;
 }
+
 
 input::placeholder 
 { 
