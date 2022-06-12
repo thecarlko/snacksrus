@@ -237,9 +237,10 @@ button
 {
     cursor: pointer;
     padding: 8px 24px; 
-    border-radius: 0.5rem;
+    border-radius: 2rem;
 
-    background-color: var(--background);
+    color: var(--background);
+    background-color: var(--foreground);
 }
 
 button:hover
@@ -264,6 +265,9 @@ button:disabled, button[aria-disabled], button[disabled]
     background-color: var(--shade);
     color: var(--tint) !important; 
     stroke: var(--tint) !important; 
+
+    cursor: default;
+    pointer-events: none !important;
 }
 /* #endregion */
 

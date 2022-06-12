@@ -96,6 +96,9 @@ div#cart
 
     margin-right: 0.75rem;
 
+    cursor: pointer;
+    pointer-events: all;
+
 }
 
 div#cart.added
@@ -197,7 +200,6 @@ div.profile .anonymous
 /* #endregion */
 
 
-
 /* #region Sheet */
 .sheet > .viewport
 {
@@ -217,7 +219,18 @@ div.profile .anonymous
         padding: 0px 1.5rem; 
     }
 }
-/* #endregoin */
+/* #endregion */
+
+
+
+
+
+
+
+
+
+
+
 
 
 

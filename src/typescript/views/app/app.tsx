@@ -3,6 +3,7 @@
 import * as React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Network } from "../../admin/network";
+import { Modal } from "../../components/modal";
 import { Category } from "../../models/category";
 import { CartProduct, Product } from "../../models/product";
 import { Home } from "../home/home";
@@ -19,6 +20,8 @@ interface IAppProperties
 
 function App(props: IAppProperties)
 {
+
+    const [activeModal, setActiveModal] = React.useState(false); 
 
     const [categories, setCategories] = React.useState<Category[]>([]); 
     const [cartItems, addToCart] = React.useReducer((items: CartProduct[], info: { product: Product, count: number }) => 
@@ -65,13 +68,15 @@ function App(props: IAppProperties)
 
     return (
     <>
-        <NavBar cartCount={ cartItems.length } />
+        <NavBar cartCount={ cartItems.length } setModal={ setActiveModal } />
 
         <Routes>
             <Route index element={ <Vendible addProductToCart={ addToCart } cats={ categories } />  } />
             <Route path="/store/:id" element={ <Store cats={ categories } /> } />
             {/* <Route path="/:id/:id" element={ <Vendible cats={ categories } /> } /> */}
         </Routes>
+
+        <Modal cartItems={ cartItems } modalActive={ activeModal } setModalActive={ setActiveModal } />
     </>
     )
 }

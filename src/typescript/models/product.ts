@@ -59,19 +59,28 @@ class CartProduct
 {
     id: string; 
 
+    title: string; 
+    name: string; 
+
     imageURL: string; 
 
     quantity: number; 
     stock: number; 
 
+    price: number; 
+
     constructor(item: Product)
     {
         this.id = item.id; 
+
+        this.title = item.title; 
+        this.name = item.name; 
 
         this.imageURL = item.imageURL; 
 
         this.quantity = 0; 
         this.stock = item.stock; 
+        this.price = item.price; 
     }
 }
 // #endregion

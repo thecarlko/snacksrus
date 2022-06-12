@@ -10,6 +10,7 @@ import { Product } from "../../models/product";
 interface INavBarProperties
 {
     cartCount: number; 
+    setModal: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 interface INavBarStates 
@@ -26,7 +27,29 @@ class NavBar extends React.Component<INavBarProperties, INavBarStates>
                 <Logo backButton={ false } />
 
                 <div className="trailing">
-                    <CartButton cartCount={ this.props.cartCount } />
+                    
+                    <div
+                    onClick={ () => 
+                    {
+                        this.props.setModal(true); 
+                    }}
+                    id="cart">
+                    <div className="icon">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M9.5425 5.5L6.375 8.67625" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path>
+                    <path d="M15.125 5.5L18.2925 8.67625" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path>
+                    <path d="M10.54 12.5V15.6062" strokeLinecap="round"></path>
+                    <path d="M14.565 12.5V15.6062" strokeLinecap="round"></path>
+                    <path d="M5.0625 9L6.29625 16.56C6.57625 18.2575 7.25 19.5 9.7525 19.5H15.0288C17.75 19.5 18.1525 18.31 18.4675 16.665L19.9375 9" strokeLinecap="round"></path>
+                    <path d="M3.75 9H21.25" strokeLinecap="round"></path>
+                    </svg>
+                    </div>
+
+                    <p id="cart-count">{ this.props.cartCount }</p>
+                    </div>
+
+
+
                     <ProfileAvatar />
                 </div>
             </nav>
@@ -81,36 +104,6 @@ function Logo(props: ILogoProperties)
 }
 // #endregion
 
-
-// #region Cart Button 
-interface ICartButtonProperties 
-{
-    cartCount: number; 
-}
-
-function CartButton(props: ICartButtonProperties)
-{
-
-    return (
-
-        <div id="cart">
-            <div className="icon">
-            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M9.5425 5.5L6.375 8.67625" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path>
-            <path d="M15.125 5.5L18.2925 8.67625" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path>
-            <path d="M10.54 12.5V15.6062" strokeLinecap="round"></path>
-            <path d="M14.565 12.5V15.6062" strokeLinecap="round"></path>
-            <path d="M5.0625 9L6.29625 16.56C6.57625 18.2575 7.25 19.5 9.7525 19.5H15.0288C17.75 19.5 18.1525 18.31 18.4675 16.665L19.9375 9" strokeLinecap="round"></path>
-            <path d="M3.75 9H21.25" strokeLinecap="round"></path>
-            </svg>
-            </div>
-
-            <p id="cart-count">{ props.cartCount }</p>
-        </div>
-    )
-
-}
-// #endregion
 
 // #region Profile 
 interface IProfileAvatarProperties 
