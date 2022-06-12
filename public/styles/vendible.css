@@ -131,6 +131,7 @@ section#pricing > div.trailing
 {
     display: flex; 
     justify-content: flex-end;
+    align-items: center;;
 }
 
 #buy
