@@ -11,13 +11,13 @@
 
 import * as React from "react"; 
 import { Link, NavLink } from "react-router-dom";
-import { Client } from "../models/client";
-import { CartProduct } from "../models/product";
-import { modalPage } from "../views/app/app";
-import { Checkout } from "../views/modal/checkout";
-import { Profile } from "../views/modal/profile";
-import { Axis, Scrollview } from "./scrollview";
-import { Stepper } from "./stepper";
+import { Client } from "../../models/client";
+import { CartProduct } from "../../models/product";
+import { modalPage } from "../app/app";
+import { Checkout } from "./checkout";
+import { Profile } from "./profile";
+import { Axis, Scrollview } from "../../components/scrollview";
+import { Stepper } from "../../components/stepper";
 
 
 
@@ -25,7 +25,8 @@ import { Stepper } from "./stepper";
 interface IModalProperties
 {
     ct: Client; 
-    cartItems: CartProduct[]; 
+    cartItems: CartProduct[];
+    setCartItems: React.Dispatch<{ product: CartProduct; count: number; }>;  
 
     page: modalPage; 
     modalActive: boolean; 
@@ -58,6 +59,7 @@ function Modal(props: IModalProperties)
             {
                 (props.page === modalPage.cart) &&
                 <Checkout
+                setProducts={ props.setCartItems }
                 products={ props.cartItems }
                 setModal={ props.setModalActive }
                 />

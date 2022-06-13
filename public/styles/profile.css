@@ -1,0 +1,61 @@
+
+
+
+
+
+
+
+/* #region Profile */
+.profile > svg 
+{
+    padding: 0.4rem; 
+}
+
+#profile > .viewport > .content 
+{
+    padding: 0px 4vw; 
+    padding-top: 4rem; 
+    padding-bottom: 16vh;
+}
+
+#profile .header
+{
+    display: flex; 
+    align-items: center; 
+    justify-content: space-between;
+
+}
+
+#profile .header > .profile
+{
+    height: 5rem; 
+    width: 5rem;
+
+    border-radius: 100%; 
+    border: 1px solid var(--gray);
+}
+
+#profile .header > .profile > svg
+{
+    padding: 1rem; 
+    stroke: 0.5px;
+
+}
+
+#profile .header > .info
+{
+    flex-grow: 1;
+    margin: 0px 1rem; 
+
+    display: flex; 
+    flex-direction: column; 
+    justify-content: center; 
+    align-items: flex-start;
+}
+/* #endregion */
+
+
+
+
+
+

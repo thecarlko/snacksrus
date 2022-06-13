@@ -11,7 +11,7 @@ import * as React from "react";
 import { Axis, Scrollview } from "../../components/scrollview";
 import { Stepper } from "../../components/stepper";
 import { Category } from "../../models/category";
-import { Product } from "../../models/product";
+import { CartProduct, Product } from "../../models/product";
 import { getIDfromURL } from "../../utilities/getId";
 
 
@@ -19,7 +19,7 @@ interface IVendibleProperties
 {
     cats: Category[]; 
 
-    addProductToCart: React.Dispatch<{ product: Product; count: number; }>; 
+    addProductToCart: React.Dispatch<{ product: CartProduct; count: number; }>; 
 }
 
 
@@ -35,8 +35,6 @@ function Vendible(props: IVendibleProperties)
 
         const parts = window.location.pathname.split(`/`).slice(1); 
         const [categoryID, id] = [parts[0], parts[1]]; 
-
-        console.log(categoryID, id); 
 
         if (props.cats.length === 0) { return undefined }
 
@@ -75,7 +73,12 @@ function Vendible(props: IVendibleProperties)
             <button
             onClick={() => 
             {
-                props.addProductToCart({ product, count }); 
+                const value = new CartProduct(product); 
+
+                props.addProductToCart({
+                    product: value,
+                    count: count
+                }); 
                 setCount(1); 
             }}
             id="buy">Add to Cart</button>

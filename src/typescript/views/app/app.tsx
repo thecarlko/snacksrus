@@ -3,7 +3,7 @@
 import * as React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { authentication, Network } from "../../admin/network";
-import { Modal } from "../../components/modal";
+import { Modal } from "../modal/modal";
 import { Category } from "../../models/category";
 import { CartProduct, Product } from "../../models/product";
 import { Checkout } from "../modal/checkout";
@@ -40,23 +40,26 @@ function App(props: IAppProperties)
     const [activeModal, setActiveModal] = React.useState(false); 
 
     const [categories, setCategories] = React.useState<Category[]>([]); 
-    const [cartItems, addToCart] = React.useReducer((items: CartProduct[], info: { product: Product, count: number }) => 
+    const [cartItems, addToCart] = React.useReducer((items: CartProduct[], info: { product: CartProduct, count: number }) => 
     {
 
-        const productIndex = items.findIndex((item) => item.id === info.product.id);
+        let values = [...items];
+
+        const productIndex = values.findIndex((item) => item.id === info.product.id);
         if (productIndex === -1)
         {
-            const item = new CartProduct(info.product); 
-            items.push(item);
+            values.push(info.product);
         }
 
-        const product = items.find((productInfo) => productInfo.id === info.product.id); 
+        const product = values.find((productInfo) => productInfo.id === info.product.id); 
         const total = product.quantity + info.count; 
 
         product.quantity = total; 
-        product.stock = product.stock - total; 
+        if (product.quantity === 0) { values = values.filter((itm) => itm.id !== product.id) }
 
-        return [...items]; 
+        console.log(values);
+
+        return [...values]; 
 
     }, []);
     // #endregion
@@ -126,6 +129,7 @@ function App(props: IAppProperties)
             ct={ client }
             page={ page }
             cartItems={ cartItems }
+            setCartItems={ addToCart }
             modalActive={ activeModal }
             setModalActive={ setActiveModal } 
         />

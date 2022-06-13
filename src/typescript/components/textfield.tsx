@@ -63,19 +63,11 @@ function Textfield(props: ITextfieldProperties)
     const [focused, setFocused] = React.useState(false); 
     const [error, setError] = React.useState(false); 
 
-    const inputFieldReference : React.MutableRefObject<HTMLInputElement> = React.useRef(undefined); 
-
 
     // #region Component
     return (
 
         <div
-        onClick={ (event) => 
-        {
-            if ((event.target as HTMLElement).tagName == `INPUT`) { return; }
-            
-            if (inputFieldReference) { inputFieldReference.current.focus() }
-        }}
         id={ props.id } 
         className={ `textfield${ props.class ? ` ${ props.class }` : `` }${ (error) ? ` error` : `` }` }>
 
@@ -96,7 +88,6 @@ function Textfield(props: ITextfieldProperties)
                     id={ id }
                     type={ props.type } 
                     onFocus = { onFocusInEvent } 
-                    ref={ inputFieldReference }
                     onChange = { (event) => { onEditEvent(event.target.value) }} 
                     onBlur = { eve => { onChangedEvent(eve.target.value) }}
                     onKeyUp = { (event) =>
