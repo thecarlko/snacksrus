@@ -189,7 +189,7 @@ function HomeFooter(props: IFooterProperties)
             </svg>                    
             </button>
 
-            <p>&prcue; swipe &sccue;</p>
+            <p><>&prcue;</>swipe<>&sccue;</></p>
 
 
             <button

@@ -23,7 +23,7 @@ interface ICheckoutProperties
 function Checkout(props: ICheckoutProperties)
 {
 
-    const [anonymousCheckout, setAnonymousCheckout] = React.useState(true); 
+    const [anonymousCheckout, setAnonymousCheckout] = React.useState(false); 
 
     // #region Total 
     const total = React.useMemo(() => 
@@ -54,34 +54,41 @@ function Checkout(props: ICheckoutProperties)
         <>
             <section className="bag-items">
             {
+                 
                 props.products.length > 0 ?
-                (props.products.map((ctProduct, ctProductIndex) => 
+                <Grid gap={{ x: 1, y: 1 }} minItemWidth={ 300 } contentItems=
+                {
+                    (props.products.map((ctProduct, ctProductIndex) => 
                 
-                <CartItem key={ ctProductIndex } product={ ctProduct } />
+                    <CartItem key={ ctProductIndex } product={ ctProduct } />
 
-                )) 
+                    ))
+
+                    
+                }/>
+
                 : 
+
                 <div className="empty-state">
-
-
-                    <Link 
-                    onClick={ () => 
-                    {
-                        props.setModal(false); 
-                    }}
-                    to={ `/store/chewies` }
-                    children=
-                    {
-                        <button className="secondary">Checkout store</button>
-                    }/>
+                <Link 
+                onClick={ () => 
+                {
+                    props.setModal(false); 
+                }}
+                to={ `/store/chewies` }
+                children=
+                {
+                    <button className="secondary">Checkout store</button>
+                }/>
                 </div>
+
             }
             </section>
 
 
             <section className="authentication">
                 <div className="header">
-                <p className="subtitle">Purchase anonymously</p>
+                <p className="label">Anonymous purchase</p>
 
                 <Toggle
                 value={ anonymousCheckout }
@@ -90,7 +97,12 @@ function Checkout(props: ICheckoutProperties)
                 </div>
 
                 { !anonymousCheckout && 
-                <div className="body">
+                <form
+                onSubmit={() => 
+                {
+                    console.log(`submit`); 
+                }}
+                className="body">
                 <Textfield
                     leadIcon=
                     {
@@ -132,7 +144,7 @@ function Checkout(props: ICheckoutProperties)
                         // </svg>
                     }
                 />
-                </div> }
+                </form> }
             </section>
 
 
@@ -175,7 +187,7 @@ function CartItem(props: ICartItemProperties)
             
             <div className="details">
                 <div className="name">
-                    <p className="label">{ `${props.product.title} ${ props.product.name }` }</p>
+                    <p className="label truncated">{ `${props.product.title} ${ props.product.name }` }</p>
                     <p>1 oz</p>
                 </div>
 

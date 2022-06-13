@@ -6,7 +6,7 @@ import { Network } from "../../admin/network";
 import { Modal } from "../../components/modal";
 import { Category } from "../../models/category";
 import { CartProduct, Product } from "../../models/product";
-import { Checkout } from "../checkout/checkout";
+import { Checkout } from "../modal/checkout";
 import { Home } from "../home/home";
 import { NavBar } from "../nav/navbar";
 import { Store } from "../store/store";

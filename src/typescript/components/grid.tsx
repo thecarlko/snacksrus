@@ -14,6 +14,8 @@ interface IGridProperties
     minItemWidth: number; 
     contentItems: React.ReactNode; 
 
+    class?: string;
+
 }
 
 
@@ -40,7 +42,7 @@ class Grid extends React.Component<IGridProperties, IGridStates>
     {
         return (
 
-            <div className="grid" style=
+            <div className={ `grid${ this.props.class ? ` ${ this.props.class }` : `` }` } style=
             {{
                 gridTemplateColumns:`repeat(auto-fill, minmax(${ this.props.minItemWidth }px, 1fr))`, 
                 gap: `${ this.props.gap.x }rem ${ this.props.gap.y }rem`

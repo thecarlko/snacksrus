@@ -12,7 +12,7 @@
 import * as React from "react"; 
 import { Link, NavLink } from "react-router-dom";
 import { CartProduct } from "../models/product";
-import { Checkout } from "../views/checkout/checkout";
+import { Checkout } from "../views/modal/checkout";
 import { Axis, Scrollview } from "./scrollview";
 import { Stepper } from "./stepper";
 

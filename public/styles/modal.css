@@ -52,7 +52,7 @@
 {
     min-width: 100%;
     height: 100%;
-    border-radius: 2rem 2rem 0px 0px;
+    border-radius: 1rem 1rem 0px 0px;
     background-color: var(--background);
 
     padding: 4vh 4vw;
@@ -84,6 +84,25 @@
     margin: 6vh 0px;
 }
 
+@media screen and (min-width: 1014px)
+{
+
+    #checkout section.bag-items > .grid 
+    {
+        grid-template-columns: repeat(auto-fill, minmax(420px, 1fr)) !important;
+    }
+}
+
+@media screen and (min-width: 1884px)
+{
+
+    #checkout section.bag-items > .grid 
+    {
+        grid-template-columns: repeat(auto-fill, minmax(600px, 1fr)) !important;
+    }
+}
+
+
 #checkout div.cart-item 
 {
     display: flex;
@@ -94,9 +113,8 @@
     min-width: 100px;
     max-width: 640px;
 
-    height: 24vmin; 
-    min-height: 80px; 
-    max-height: 120px;
+    min-height: 8rem; 
+    max-height: 8rem; 
 
     /* margin-left: auto;  */
     margin-right: auto;
@@ -108,9 +126,11 @@
 #checkout div.cart-item .image 
 {
     height: 100%;
-    padding: 0px 0.5rem; 
+    padding: 0px 0rem; 
 
-    min-width: 24vmin;
+    min-width: 8rem;
+    max-width: 8rem;
+    padding: 0.2rem; 
 
     display: flex;
     align-items: center;
@@ -172,27 +192,25 @@
     justify-content: space-between;
 }
 
-#checkout section.authentication > div.body 
+#checkout section.authentication > .body 
 {
     display: flex; 
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: space-between;
     align-items: flex-start;
 
-    margin-top: 1rem;
+    gap: 1rem 1rem; 
+    margin-top: 2rem;
 
 }
 
 
 #email, #password
 {
-    width: 42vw;
-    min-width: 320px;
+    width: unset;
+    min-width: 280px;
+    max-width: 100%;
     flex-grow: 1;
-    padding: 0.5rem 1rem; 
-    margin: 0px 1vw;
-
-    margin-bottom: 1rem;
 
     background-color: var(--highlight);
     border-radius: 0.5rem; 
@@ -216,6 +234,22 @@
     background: linear-gradient(0deg, var(--background) 0%, transparent 100%);
 }
 /* #endregion */
+
+
+
+
+
+/* #region  */
+
+
+
+
+
+
+
+
+
+
 
 
 
