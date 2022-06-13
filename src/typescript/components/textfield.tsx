@@ -23,6 +23,9 @@ interface ITextfieldProperties
     leadIcon?: JSX.Element, 
     trailIcon?: JSX.Element, 
 
+    id? : string; 
+    class?: string; 
+
     /**
      * Invoked when the user is about to type
     */
@@ -50,99 +53,104 @@ interface ITextfieldStates
     error: boolean; 
 }
 
-class Textfield extends React.Component<ITextfieldProperties, ITextfieldStates>
+
+
+function Textfield(props: ITextfieldProperties)
 {
-    private id : string = uuid(); 
 
-    constructor(props: ITextfieldProperties)
-    {
-        super(props); 
+    const id : string = uuid(); 
 
-        this.state = 
+    const [focused, setFocused] = React.useState(false); 
+    const [error, setError] = React.useState(false); 
+
+    const inputFieldReference : React.MutableRefObject<HTMLInputElement> = React.useRef(undefined); 
+
+
+    // #region Component
+    return (
+
+        <div
+        onClick={ (event) => 
         {
-            focussed: false, 
-            error: false
+            if ((event.target as HTMLElement).tagName == `INPUT`) { return; }
+            
+            if (inputFieldReference) { inputFieldReference.current.focus() }
+        }}
+        id={ props.id } 
+        className={ `textfield${ props.class ? ` ${ props.class }` : `` }${ (error) ? ` error` : `` }` }>
+
+        {
+            // - Lead Icon
+            props.leadIcon &&
+            <div className="icon">
+                { props.leadIcon }
+            </div>
         }
 
-        this.onFocusInEvent = this.onFocusInEvent.bind(this);
-        this.onEditEvent = this.onEditEvent.bind(this);
-        this.onChangedEvent = this.onChangedEvent.bind(this); 
-        this.onCommitEvent = this.onCommitEvent.bind(this);
-    }
-
-    render(): React.ReactNode 
-    {
-        return (
-            <div className={ `textfield${ (this.state.error) ? ` error` : `` }` }>
-
-            {
-                // - Lead Icon
-                this.props.leadIcon &&
-                <div className="icon">
-                    { this.props.leadIcon }
-                </div>
-            }
-
-            {
-                // - Inputfield
-                <div className="input">
-                    {/* { (this.state.focussed == false) ? <label htmlFor={ this.id }>{ this.props.placeholder }</label> : <></> } */}
-                    <input
-                        placeholder={ this.props.placeholder }
-                        id={ this.id }
-                        type={ this.props.type } 
-                        onFocus = { this.onFocusInEvent } 
-                        onChange = { (event) => { this.onEditEvent(event.target.value) }} 
-                        onBlur = { eve => { this.onChangedEvent(eve.target.value) }}
-                        onKeyUp = { (event) =>
-                        {
-                            if (event.key == "Enter") { this.onCommitEvent((event.target as HTMLInputElement).value) }
-                        }}
-                    />
-                </div>
-            }
-
-            {
-                //Trail Icon
-                this.props.trailIcon &&
-                <div className="icon">
-                    { this.props.trailIcon }
-                </div>
-            }
+        {
+            // - Inputfield
+            <div className="input">
+                {/* { (state.focussed == false) ? <label htmlFor={ id }>{ props.placeholder }</label> : <></> } */}
+                <input
+                    placeholder={ props.placeholder }
+                    id={ id }
+                    type={ props.type } 
+                    onFocus = { onFocusInEvent } 
+                    ref={ inputFieldReference }
+                    onChange = { (event) => { onEditEvent(event.target.value) }} 
+                    onBlur = { eve => { onChangedEvent(eve.target.value) }}
+                    onKeyUp = { (event) =>
+                    {
+                        if (event.key == "Enter") { onCommitEvent((event.target as HTMLInputElement).value) }
+                    }}
+                />
             </div>
+        }
 
-        );
-    }
+        {
+            //Trail Icon
+            props.trailIcon &&
+            <div className="icon">
+                { props.trailIcon }
+            </div>
+        }
+        </div>
+
+    )
+    // #endregion
+
 
     // - Methods    
-    // * Edit methods
-    onFocusInEvent()
+    // #region Textfield Methods
+    function onFocusInEvent()
     {
-        this.setState({ focussed: true }); 
+        setFocused(true); 
 
-        if (this.props.onTextfieldFocus) { this.props.onTextfieldFocus(); }
+        if (props.onTextfieldFocus) { props.onTextfieldFocus(); }
 
     }
 
-    onEditEvent(value: string)
+    function onEditEvent(value: string)
     {
-        if (this.props.onTextfieldEdit) { this.props.onTextfieldEdit(value); }
+        if (props.onTextfieldEdit) { props.onTextfieldEdit(value); }
     }
 
-    onChangedEvent(value: string)
+    function onChangedEvent(value: string)
     {
-        if (value == "" && this.state.focussed == true) 
+        if (value == "" && focused == true) 
         {
-            this.setState({ focussed: false });
+            setFocused(false); 
         }
 
-        if (this.props.onTextfieldChanged) { this.props.onTextfieldChanged(value); }
+        if (props.onTextfieldChanged) { props.onTextfieldChanged(value); }
     }
 
-    onCommitEvent(value : string)
+    function onCommitEvent(value : string)
     {
-        if (this.props.onTextfieldCommit) { this.props.onTextfieldCommit(value); }
+        if (props.onTextfieldCommit) { props.onTextfieldCommit(value); }
     }
+    // #endregion
+
 }
 
 

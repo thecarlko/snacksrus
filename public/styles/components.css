@@ -196,8 +196,8 @@ div.scrollview.vertical > div.viewport > div.content
     align-items: center; 
     justify-content: flex-start;
 
-    width: 280px; 
-    height: 2rem;
+    width: 320px; 
+    height: 2.5rem;
 
     padding: 0.2rem 0.5rem; 
 
@@ -212,10 +212,10 @@ div.scrollview.vertical > div.viewport > div.content
 
 .textfield > .icon 
 {
-    width: 1.5rem; 
-    height: 1.5rem;
+    height: 100%;
+    max-width: 100%;
 
-    stroke: var(--foreground); 
+    stroke: var(--tint); 
     stroke-width: 1;
 }
 
@@ -227,6 +227,8 @@ div.scrollview.vertical > div.viewport > div.content
     display: flex; 
     justify-content: flex-start;
     align-items: center;
+
+    margin: 0px 0.5rem; 
 }
 
 .textfield > div.input > label 
@@ -238,6 +240,11 @@ div.scrollview.vertical > div.viewport > div.content
 {
     width: 100%;
     height: 100%;
+}
+
+.textfield > div.input > input::placeholder
+{
+    color: var(--tint); 
 }
 /* #endregion */
 
@@ -251,7 +258,7 @@ div.scrollview.vertical > div.viewport > div.content
 }
   
 
-.label 
+.toggle .label 
 {
     margin-left: 16px;
     font-weight: var(--regular);
@@ -297,7 +304,6 @@ div.scrollview.vertical > div.viewport > div.content
 }
 /* #endregion */
 
-
 /* #region Pagigation */
 .pagigation
 {
@@ -326,4 +332,36 @@ div.scrollview.vertical > div.viewport > div.content
     background-color: var(--foreground);
 }
 /* #endregion */
+
+/* #region Grid */
+div.grid 
+{
+    display: grid;
+}
+
+div.grid > .grid-item 
+{
+    display: flex;
+    flex: 1 1 240px;
+
+    overflow: hidden;
+
+    min-width: 0;
+    max-width: 100%;
+}
+/* #endregion */
+
+/* #region Articles */
+article.region 
+{
+    margin-top: 1rem;
+    margin-bottom: 3rem;
+}
+
+article.region > p
+{
+    margin: 1rem 0px; ;
+}
+/* #endregion */
+
 

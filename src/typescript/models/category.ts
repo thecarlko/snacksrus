@@ -30,12 +30,6 @@ class Category
     async setProducts()
     {
         const values = await Network.fetchCategoryProducts(this.id); 
-
-        for (const prod of values)
-        {
-            if (!prod.imageURL) { prod.getImageURL() }
-        }
-
         this.items = values; 
     }
 

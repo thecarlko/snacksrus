@@ -11,57 +11,42 @@ import { uuid } from "../utilities/uuid";
 
 interface IToggleProperties 
 {
+    value: boolean; 
+    setValue: (status: boolean) => any; 
+
     labelText?: string; 
-    onToggleSwitch?: (status: boolean) => any; 
-}
-
-interface IToggleStates 
-{
-
 }
 
 
-class Toggle extends React.Component <IToggleProperties, IToggleStates>
+function Toggle(props: IToggleProperties)
 {
 
 
-    constructor(props: IToggleProperties)
-    {
-        super(props);
 
-        this.state = 
-        {
-
-        }
-    }
-
-
-
-    render(): React.ReactNode
-    {
-       return (
+    // #region Component
+    return (
+        
         <label className="toggle">
 
             <div className="element">
                 <input
                     type="checkbox"
                     name="check"
-                    value="check"
+                    checked={ props.value }
                     onChange={ (event: React.ChangeEvent< HTMLInputElement >) => 
                     {
-                        if (this.props.onToggleSwitch) { this.props.onToggleSwitch(event.target.checked); }
-                    }}
+                        props.setValue(event.target.checked) }
+                    }
                 />
                 <div className="indicator"></div>
             </div>
 
-            <p className="label">{ this.props.labelText }</p>
+            <p className="label">{ props.labelText }</p>
 
         </label>
 
-       )
-    }
-
+    )
+    // #endregion
 }
 
 

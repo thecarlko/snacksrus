@@ -12,6 +12,7 @@ import { Axis, Scrollview } from "../../components/scrollview";
 import { Stepper } from "../../components/stepper";
 import { Category } from "../../models/category";
 import { Product } from "../../models/product";
+import { getIDfromURL } from "../../utilities/getId";
 
 
 interface IVendibleProperties 
@@ -31,10 +32,16 @@ function Vendible(props: IVendibleProperties)
     // #region Product
     const product = React.useMemo<Product>(() => 
     {
-        if (props.cats.length == 0) { return undefined; }
-        if (props.cats[2].items.length == 0) { return undefined; }
 
-        return props.cats[2].items[2]; 
+        const parts = window.location.pathname.split(`/`).slice(1); 
+        const [categoryID, id] = [parts[0], parts[1]]; 
+
+        console.log(categoryID, id); 
+
+        if (props.cats.length === 0) { return undefined }
+
+        const value = props.cats.find((cat) => cat.id === categoryID).items.find((prod) => prod.id === id); 
+        return value; 
 
     }, [props.cats]); 
     // #endregion

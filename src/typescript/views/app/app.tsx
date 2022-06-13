@@ -6,6 +6,7 @@ import { Network } from "../../admin/network";
 import { Modal } from "../../components/modal";
 import { Category } from "../../models/category";
 import { CartProduct, Product } from "../../models/product";
+import { Checkout } from "../checkout/checkout";
 import { Home } from "../home/home";
 import { NavBar } from "../nav/navbar";
 import { Store } from "../store/store";
@@ -71,9 +72,9 @@ function App(props: IAppProperties)
         <NavBar cartCount={ cartItems.length } setModal={ setActiveModal } />
 
         <Routes>
-            <Route index element={ <Vendible addProductToCart={ addToCart } cats={ categories } />  } />
+            <Route index element={ <Home cats={ categories } />  } />
             <Route path="/store/:id" element={ <Store cats={ categories } /> } />
-            {/* <Route path="/:id/:id" element={ <Vendible cats={ categories } /> } /> */}
+            <Route path="/:id/:id" element={ <Vendible addProductToCart={ addToCart } cats={ categories } /> } />
         </Routes>
 
         <Modal cartItems={ cartItems } modalActive={ activeModal } setModalActive={ setActiveModal } />

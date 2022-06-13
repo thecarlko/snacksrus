@@ -42,12 +42,12 @@
 #categories-chips
 {
     position: sticky; 
-    top: 20vh; 
+    top: 2rem; 
     height: 3rem;
 
     z-index: 5; 
 
-    margin: 4vh 0px; 
+    padding: 4vh 0px; 
 
     background-color: var(--background); ;
 
