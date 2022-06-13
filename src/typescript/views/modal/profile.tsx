@@ -57,15 +57,19 @@ function Profile(props: IProfilePageProperties)
 
     // #region Component
     return (
-    <Scrollview id="profile" axes={ Axis.vertical } classes="sheet" content=
+    <Scrollview id="profile" axes={ Axis.vertical } content=
     {
     <>
         <div className="header">
             <ProfileAvatar clientInfo={ props.client } />
 
             <div className="info">
-                <p className="subtitle">{ props.client?.user.displayName ? props.client?.user.displayName : `Unnamed` }</p>
-                <p className="">{ props.client?.user.uid }</p>
+                <p className="subtitle">{ props.client?.user.displayName ? props.client?.user.displayName : `Anonymous` }</p>
+
+                {
+                    props.client.user.email &&
+                    <p className="">{ props.client.user.email }</p>
+                }
             </div>
         </div>
 

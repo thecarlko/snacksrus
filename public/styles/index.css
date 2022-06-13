@@ -143,7 +143,12 @@ div#cart #cart-count
 
 
 /* * Profile Picutre */
-div.profile 
+nav div.pfp 
+{
+    cursor: pointer;
+}
+
+nav div.profile 
 {
     height: 2.4rem; 
     width: 2.4rem;

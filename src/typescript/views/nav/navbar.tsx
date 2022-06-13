@@ -36,6 +36,7 @@ class NavBar extends React.Component<INavBarProperties, INavBarStates>
                     <div
                     onClick={ () => 
                     {
+                        this.props.setModalPage(modalPage.cart);
                         this.props.setModal(true); 
                     }}
                     id="cart">
@@ -54,8 +55,16 @@ class NavBar extends React.Component<INavBarProperties, INavBarStates>
                     </div>
 
 
-
+                    <div
+                    className="pfp"
+                    onClick={ () => 
+                    {
+                        this.props.setModalPage(modalPage.profile);
+                        this.props.setModal(true); 
+                    }}
+                    >
                     <ProfileAvatar clientInfo={ this.props.client }/>
+                    </div>
                 </div>
             </nav>
         )
