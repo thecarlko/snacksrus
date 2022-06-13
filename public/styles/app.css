@@ -340,7 +340,7 @@ div.icon
     justify-content: center;
 }
 
-div.icon > svg 
+div > svg 
 {
     width: 100%; 
     height: 100%;

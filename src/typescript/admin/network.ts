@@ -4,11 +4,13 @@
 
 
 import { FirebaseApp, initializeApp } from "firebase/app";
-import { collection, doc, getDocs, getFirestore, setDoc } from "firebase/firestore";
+import { addDoc, collection, doc, getDoc, getDocs, getFirestore, query, setDoc, where } from "firebase/firestore";
 import { getDownloadURL, getStorage, ref } from "firebase/storage";
+import { getAuth } from "firebase/auth";
 import { getTokenSourceMapRange } from "typescript";
 import { Category } from "../models/category";
 import { Product } from "../models/product";
+import { Order } from "../models/order";
 
 const firebaseConfiguration = 
 {
@@ -22,14 +24,14 @@ const firebaseConfiguration =
     measurementId: "G-G9VYM9BZ89"
 }
 
-const FirebaseApp = initializeApp(firebaseConfiguration); 
-const database = getFirestore(FirebaseApp);
-const storage = getStorage(FirebaseApp);
+const firebaseApp = initializeApp(firebaseConfiguration); 
+const database = getFirestore(firebaseApp);
+const storage = getStorage(firebaseApp);
+export const authentication = getAuth(firebaseApp); 
 
 
 class Network 
 {
-
 
 
     constructor()
@@ -97,6 +99,54 @@ class Network
     }
     // #endregion
 
+
+    //  ^ Authentication Flow
+    // #region Create Cart 
+    static async createCartForUser(userID: string)
+    {
+        await addDoc(collection(database, `orders`), 
+        {
+            user: userID
+        })
+        .then((order) => 
+        {
+            const documentReference = doc(database, `clients`, userID); 
+            return setDoc(documentReference, 
+            {
+                cart: order.id
+            }, { merge: true })
+        })
+    }
+    // #endregion
+
+    // #region Fetch Client Deliveries
+    static async fetchClientDeliveries(clientID: string) : Promise<Order[]>
+    {
+        const deliveryQuery = query(collection(database, `orders`), where(`user`, `==`, clientID), where(`delivered`, "==", false));
+        const snapshot = await getDocs(deliveryQuery);
+
+        const orders = snapshot.docs.map((orderSnapshot) => new Order(orderSnapshot)); 
+        return orders; 
+    }
+    // #endregion
+
+    // #region Fetch Purchases
+    static async fetchPurchases(clientID: string) : Promise<Order[]>
+    {
+        const deliveryQuery = query(collection(database, `orders`), where(`user`, `==`, clientID), where(`delivered`, "==", true));
+        const snapshot = await getDocs(deliveryQuery);
+
+        const orders = snapshot.docs.map((orderSnapshot) => new Order(orderSnapshot)); 
+        return orders; 
+    }
+    // #endregion
+
+    // #region Sign out
+    static async signClientOut()
+    {
+        authentication.signOut(); 
+    }
+    // #endregion
 
 
 }

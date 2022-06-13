@@ -42,10 +42,6 @@
 /* #endregion */
 
 
-
-
-
-
 /* ^ Checkout */
 /* #region Checkout */
 #checkout 
@@ -239,12 +235,45 @@
 
 
 
-/* #region  */
+/* #region Profile */
+.profile > svg 
+{
+    padding: 0.4rem; 
+}
 
+#profile .header
+{
+    display: flex; 
+    align-items: center; 
+    justify-content: space-between;
 
+    padding-top: 16vh;    
+}
 
+#profile .header > .profile
+{
+    height: 5rem; 
+    width: 5rem;
+}
 
+#profile .header > .profile > svg
+{
+    padding: 1rem; 
+    stroke: 0.5px;
 
+}
+
+#profile .header > .info
+{
+    flex-grow: 1;
+    margin: 0px 1rem; 
+
+    display: flex; 
+    flex-direction: column; 
+    justify-content: center; 
+    align-items: flex-start;
+}
+/* #endregion */
 
 
 

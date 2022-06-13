@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { Network } from "../../admin/network";
+import { authentication, Network } from "../../admin/network";
 import { Modal } from "../../components/modal";
 import { Category } from "../../models/category";
 import { CartProduct, Product } from "../../models/product";
@@ -11,6 +11,17 @@ import { Home } from "../home/home";
 import { NavBar } from "../nav/navbar";
 import { Store } from "../store/store";
 import { Vendible } from "../vendible/vendible";
+import { Profile } from "../modal/profile";
+import { onAuthStateChanged, signInAnonymously, User } from "firebase/auth";
+import { Client } from "../../models/client";
+
+
+
+enum modalPage
+{
+    cart = 0, 
+    profile = 1
+}
 
 
 interface IAppProperties 
@@ -22,6 +33,10 @@ interface IAppProperties
 function App(props: IAppProperties)
 {
 
+    // #region Dependencies
+    const [client, setClient] = React.useState<Client>(undefined); 
+
+    const [page, setPage] = React.useState(modalPage.cart); 
     const [activeModal, setActiveModal] = React.useState(false); 
 
     const [categories, setCategories] = React.useState<Category[]>([]); 
@@ -44,11 +59,26 @@ function App(props: IAppProperties)
         return [...items]; 
 
     }, []);
+    // #endregion
 
 
     React.useEffect(() => 
     {
         setupPage(); 
+
+        onAuthStateChanged(authentication, async (user) => 
+        {
+            if (!user)
+            {
+                const credential = await signInAnonymously(authentication);
+                await Network.createCartForUser(credential.user.uid); 
+                return; 
+            }
+
+            const client = new Client(user); 
+            setClient(client); 
+
+        });
 
     }, []); 
 
@@ -67,9 +97,24 @@ function App(props: IAppProperties)
     }, []); 
     // #endregion
 
+    // #region Authenticate 
+    React.useEffect(() => 
+    {
+        console.log(client); 
+
+
+    }, [client]); 
+    // #endregion
+
+    // #region Component
     return (
     <>
-        <NavBar cartCount={ cartItems.length } setModal={ setActiveModal } />
+        <NavBar
+            client={ client }
+            cartCount={ cartItems.length }
+            setModal={ setActiveModal }
+            setModalPage={ setPage }
+        />
 
         <Routes>
             <Route index element={ <Home cats={ categories } />  } />
@@ -77,13 +122,20 @@ function App(props: IAppProperties)
             <Route path="/:id/:id" element={ <Vendible addProductToCart={ addToCart } cats={ categories } /> } />
         </Routes>
 
-        <Modal cartItems={ cartItems } modalActive={ activeModal } setModalActive={ setActiveModal } />
+        <Modal
+            ct={ client }
+            page={ page }
+            cartItems={ cartItems }
+            modalActive={ activeModal }
+            setModalActive={ setActiveModal } 
+        />
     </>
     )
+    // #endregion
 }
 
 
-export { App }
+export { App, modalPage }
 
 
 

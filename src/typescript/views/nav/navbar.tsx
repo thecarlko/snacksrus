@@ -4,13 +4,18 @@
 
 import * as React from "react"
 import { Link } from "react-router-dom"
+import { Client } from "../../models/client";
 import { Product } from "../../models/product";
+import { modalPage } from "../app/app";
+import { ProfileAvatar } from "../modal/profile";
 
 
 interface INavBarProperties
 {
+    client: Client; 
     cartCount: number; 
     setModal: React.Dispatch<React.SetStateAction<boolean>>;
+    setModalPage: React.Dispatch<React.SetStateAction<modalPage>>;
 }
 
 interface INavBarStates 
@@ -50,7 +55,7 @@ class NavBar extends React.Component<INavBarProperties, INavBarStates>
 
 
 
-                    <ProfileAvatar />
+                    <ProfileAvatar clientInfo={ this.props.client }/>
                 </div>
             </nav>
         )
@@ -105,24 +110,7 @@ function Logo(props: ILogoProperties)
 // #endregion
 
 
-// #region Profile 
-interface IProfileAvatarProperties 
-{
 
-}
-
-function ProfileAvatar(props: IProfileAvatarProperties)
-{
-
-
-    return ( 
-        <div className="profile">
-
-        </div>
-    )
-
-}
-// #endregion
 
 
 export { NavBar }
