@@ -37,6 +37,14 @@
     text-align: center;
 }
 
+@media screen and (min-width: 1440px)
+{
+    #display-tag h1 
+    {
+        font-size: 2.5vw;
+    }
+}
+
 
 /* #region Chip Bar */
 #categories-chips

@@ -23,13 +23,17 @@ interface ICheckoutProperties
 {
     currentClient: Client; 
     products: CartProduct[]; 
-    setProducts: React.Dispatch<{ product: CartProduct; count: number; }>;
+    setProducts: React.Dispatch<{
+        dispatchArray?: CartProduct[];
+        product: CartProduct;
+        count: number;
+    }>;
     setModal: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 function Checkout(props: ICheckoutProperties)
 {
-
+    const [successfulConfirmation, setSuccessfulConfirmation] = React.useState(false); 
     const [hidePassword, setHidePassword] = React.useState(true); 
     const [anonymousCheckout, setAnonymousCheckout] = React.useState(false); 
 
@@ -63,8 +67,15 @@ function Checkout(props: ICheckoutProperties)
         Network.confirmOrder(props.currentClient.user.uid, renderOrder())
         .then(() => 
         {
-            props.setProducts({ product: undefined, count: 0 }); 
-            props.setModal(false); 
+            setSuccessfulConfirmation(true); 
+            setTimeout(() => {
+                
+                props.setProducts({ dispatchArray: [], product: undefined, count: 0 }); 
+                props.setModal(false);
+
+                setSuccessfulConfirmation(false); 
+
+            }, 600);
         }); 
 
     }, [props.currentClient, props.products]); 
@@ -127,7 +138,6 @@ function Checkout(props: ICheckoutProperties)
 
             }
             </section>
-
 
             { false &&
             <section className="authentication">
@@ -237,12 +247,13 @@ function Checkout(props: ICheckoutProperties)
 
             <section id="submit">
                 <button
+                className={ successfulConfirmation ? `success` : `` }
                 onClick={ () => 
                 {   
                     confirmOrder(); 
                 }}
                 disabled={ props.products.length === 0 }
-                >Set Order</button>
+                >{ successfulConfirmation ? `Order set successfully :)` : `Confirm Order` }</button>
             </section>
 
 
@@ -265,7 +276,11 @@ function Checkout(props: ICheckoutProperties)
 interface ICartItemProperties 
 {
     product: CartProduct; 
-    setProducts: React.Dispatch<{ product: CartProduct; count: number; }>;
+    setProducts: React.Dispatch<{
+        dispatchArray?: CartProduct[];
+        product: CartProduct;
+        count: number;
+    }>;
 }
 
 function CartItem(props: ICartItemProperties)

@@ -26,7 +26,11 @@ interface IModalProperties
 {
     ct: Client; 
     cartItems: CartProduct[];
-    setCartItems: React.Dispatch<{ product: CartProduct; count: number; }>;  
+    setCartItems: React.Dispatch<{
+        dispatchArray?: CartProduct[];
+        product: CartProduct;
+        count: number;
+    }>;  
 
     page: modalPage; 
     modalActive: boolean; 

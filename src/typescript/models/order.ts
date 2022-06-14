@@ -23,11 +23,11 @@ class Order
     {
         this.id = snapshot.id; 
         this.userID = snapshot.data().user;
-
+        
         this.orderedTime = snapshot.data().orderedTime ? snapshot.data().orderedTime : undefined; 
         
-        const data = (snapshot.data().products as any[]).map((json) => JSON.parse(json)); 
-        const items = data.map((cartData) => new CartProduct(cartData));
+        const data = (snapshot.data().products as any[])?.map((json) => JSON.parse(json)); 
+        const items = data ? data.map((cartData) => new CartProduct(cartData)) : [];
 
         this.cart = new Cart(snapshot.id, this.userID, items); 
     }

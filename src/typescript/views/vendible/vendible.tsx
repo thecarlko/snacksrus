@@ -19,7 +19,11 @@ interface IVendibleProperties
 {
     cats: Category[]; 
 
-    addProductToCart: React.Dispatch<{ product: CartProduct; count: number; }>; 
+    addProductToCart: React.Dispatch<{
+        dispatchArray?: CartProduct[];
+        product: CartProduct;
+        count: number;
+    }>; 
 }
 
 
@@ -27,6 +31,7 @@ interface IVendibleProperties
 function Vendible(props: IVendibleProperties) 
 {
 
+    const [adding, setAdding] = React.useState(false); 
     const [count, setCount] = React.useState<number>(1); 
 
     // #region Product
@@ -44,6 +49,25 @@ function Vendible(props: IVendibleProperties)
     }, [props.cats]); 
     // #endregion
 
+    // #region Add To Cart
+    const addToCart = React.useCallback(() => 
+    {
+        setAdding(true); 
+        setTimeout(() => {
+            setAdding(false);
+        }, 750);
+
+        const value = new CartProduct(product); 
+
+        props.addProductToCart({
+            product: value,
+            count: count
+        }); 
+
+        setCount(1);
+
+    }, [product, count]); 
+    // #endregion
 
     return (
 
@@ -59,6 +83,7 @@ function Vendible(props: IVendibleProperties)
         <section id="showcase">
         <div className="image">
             <img src={ product.imageURL } alt={ `${ product.title } ${ product.title }` } />
+            { adding && <img className="atc" src={ product.imageURL } alt={ `${ product.title } ${ product.title }` } /> }
         </div>
 
         <div className="cast-shadow"></div>
@@ -73,15 +98,10 @@ function Vendible(props: IVendibleProperties)
             <button
             onClick={() => 
             {
-                const value = new CartProduct(product); 
-
-                props.addProductToCart({
-                    product: value,
-                    count: count
-                }); 
-                setCount(1); 
+                addToCart();  
             }}
-            id="buy">Add to Cart</button>
+            className={ adding ? `success` : `` }
+            id="buy">{ (adding) ? `Added to cart` : `Add to cart` }</button>
         </div>
 
         <div className="trailing">

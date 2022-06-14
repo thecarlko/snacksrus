@@ -9,10 +9,11 @@ import { getDownloadURL, getStorage, ref } from "firebase/storage";
 import { getAuth, User } from "firebase/auth";
 import { getTokenSourceMapRange } from "typescript";
 import { Category } from "../models/category";
-import { Product } from "../models/product";
+import { CartProduct, Product } from "../models/product";
 import { Cart, Order } from "../models/order";
 import { ADDRGETNETWORKPARAMS } from "dns";
 import { Client } from "../models/client";
+import { cli } from "webpack-dev-server";
 
 const firebaseConfiguration = 
 {
@@ -127,20 +128,18 @@ class Network
         const deliveryQuery = query(collection(database, `orders`), where("orderedTime", "!=", null), where("user", "==", clientID));
         const snapshot = await getDocs(deliveryQuery);
 
-        // console.log(snapshot.docs); 
         const orders = snapshot.docs.map((orderSnapshot) => new Order(orderSnapshot)); 
         return orders; 
     }
     // #endregion
 
-    // #region Fetch Purchases
-    static async fetchPurchases(clientID: string) : Promise<Order[]>
+    // #region Fetch Client Order
+    static async fetchClientOrder(client: Client)
     {
-        const deliveryQuery = query(collection(database, `orders`), where(`user`, `==`, clientID), where(`delivered`, "==", true));
-        const snapshot = await getDocs(deliveryQuery);
+        const orderReference = doc(database, `orders`, client.cartID);
+        const object = await getDoc(orderReference); 
 
-        const orders = snapshot.docs.map((orderSnapshot) => new Order(orderSnapshot)); 
-        return orders; 
+        return new Order(object); 
     }
     // #endregion
 
@@ -156,17 +155,31 @@ class Network
     }
     // #endregion
 
+    // #region Update Cart Data 
+    static async updateCartData(orderID: string, products: CartProduct[])
+    {
+        const orderReference = doc(database, `orders`, orderID);
+        const items = products.map((prod) => { return JSON.stringify(prod) });
+
+        await setDoc(orderReference, 
+        {
+            products: items
+
+        }, { merge: true }); 
+
+    }
+    // #endregion
+
     // #region Set Order for user
     static async confirmOrder(userID: string, order: Cart)
     {
         const orderReference = doc(database, `orders`, order.id);
-        const items = order.products.map((prod) => { return JSON.stringify(prod) });
-
         const orderTime = new Timestamp((Date.now() / 1000), 0); 
+
+        await Network.updateCartData(order.id, order.products); 
 
         await setDoc(orderReference, 
         {
-            products: items, 
             orderedTime: orderTime,
             delivered: false 
 

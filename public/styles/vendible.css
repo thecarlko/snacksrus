@@ -11,7 +11,7 @@
 
 main#vendible
 {
-    padding-top: 4rem;
+    padding-top: 6rem;
     padding-bottom: 2vh;
     padding-left: 4vw; 
     padding-right: 4vw;
@@ -84,6 +84,45 @@ section#showcase
     transform: translateY(-28%);
 }
 
+#showcase .image img.atc 
+{
+    position: fixed;
+    width: 42vmin; 
+    height: 42vmin;
+
+    z-index: 50; 
+
+    animation: add-to-cart 750ms ease-in-out forwards;
+}
+
+@keyframes add-to-cart 
+{
+    0% 
+    {
+        opacity: 100%;
+        transform:
+            translateX(0)
+            translateY(-3rem)
+            rotate(0deg)
+            scale(1.2)
+        ;
+    }
+
+    100% 
+    {
+        opacity: 0%;
+        transform:
+            translateX(calc(47vw - 4rem))
+            translateY(calc(-50vh + 2.5rem))
+            rotate(540deg)
+            scale(.1)
+        ;
+    }
+
+
+}
+  
+
 #showcase div.cast-shadow 
 {
     position: absolute; 
@@ -94,7 +133,7 @@ section#showcase
     z-index: -1; 
 
     border-radius: 100%;
-    background-color: var(--background);
+    background-color: var(--shade);
     opacity: 24%;
 
     /* display: none; */
@@ -148,6 +187,12 @@ section#pricing > div.trailing
     transition-timing-function: ease-in-out;
 }
 
+#buy.success 
+{
+    pointer-events: none; 
+    background-color: var(--success);
+    color: #FFFFFF; 
+}
 
 @media screen and (max-width: 500px)
 {

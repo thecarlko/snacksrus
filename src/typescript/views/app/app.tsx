@@ -42,9 +42,9 @@ function App(props: IAppProperties)
     const [activeModal, setActiveModal] = React.useState(false); 
 
     const [categories, setCategories] = React.useState<Category[]>([]); 
-    const [cartItems, addToCart] = React.useReducer((items: CartProduct[], info: { product: CartProduct, count: number }) => 
+    const [cartItems, addToCart] = React.useReducer((items: CartProduct[], info: { dispatchArray?: CartProduct[], product: CartProduct, count: number }) => 
     {
-        if (info.product === undefined && info.count === 0) { return [] };
+        if (info.dispatchArray) { return info.dispatchArray };
         let values = [...items]
 
         const productIndex = values.findIndex((product) => product.id === info.product.id); 
@@ -86,6 +86,7 @@ function App(props: IAppProperties)
 
         });
 
+
     }, []); 
 
     // #region Setup Page 
@@ -103,12 +104,24 @@ function App(props: IAppProperties)
     }, []); 
     // #endregion
 
+    // #region Item Total 
+    const itemTotal = React.useMemo<number>(() => 
+    {
+        let total : number = 0; 
+        if (!cartItems || cartItems.length <= 0) { return total }
+
+        total = (cartItems.map((itm) => itm.quantity)).reduce((a, b) => a + b);
+        return total; 
+
+    }, [cartItems]);
+    // #endregion
+
     // #region Component
     return (
     <>
         <NavBar
             client={ client }
-            cartCount={ cartItems.length }
+            cartCount={ itemTotal }
             setModal={ setActiveModal }
             setModalPage={ setPage }
         />

@@ -72,8 +72,8 @@
     min-width: 100px;
     max-width: 640px;
 
-    min-height: 8rem; 
-    max-height: 8rem; 
+    min-height: 6rem; 
+    max-height: 6rem; 
 
     /* margin-left: auto;  */
     margin-right: auto;
@@ -87,8 +87,8 @@
     height: 100%;
     padding: 0px 0rem; 
 
-    min-width: 8rem;
-    max-width: 8rem;
+    min-width: 6rem;
+    max-width: 6rem;
     padding: 0.5rem; 
 
     display: flex;
@@ -116,7 +116,7 @@
 #checkout div.cart-item .details > div 
 {
     width: 100%;
-    padding: 0px 1rem; 
+    padding-left: 1rem; 
 }
 
 #checkout .cart-item div.pricing 
@@ -229,6 +229,12 @@
     width: 100%; 
     padding: 2rem 0px;
     background: linear-gradient(0deg, var(--background) 0%, transparent 100%);
+}
+
+#modal.active #checkout #submit > button.success
+{
+    background-color: var(--success);
+    color: var(--background); 
 }
 /* #endregion */
 
