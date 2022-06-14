@@ -217,6 +217,10 @@ function Checkout(props: ICheckoutProperties)
             </>
             }/>
 
+            <section>
+                <p className="error">For demonstration purposes only</p>
+            </section>
+
             <section id="submit">
                 <button
                 onClick={ () => 
