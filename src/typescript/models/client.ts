@@ -29,9 +29,7 @@ class Client
 
         this.cartID = data.data().cart; 
         this.orders = data.data().orders as string[]; 
-
-        console.log(data.data()); 
-        
+                
     }
 
 }

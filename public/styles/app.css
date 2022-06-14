@@ -66,7 +66,6 @@
     z-index: inherit;
     stroke: inherit; 
     stroke-width: inherit;
-    fill: inherit;
 
     font-size: inherit;
 }
@@ -193,6 +192,11 @@ p.truncated
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+p.error 
+{
+    color: var(--error); 
 }
 
 /* #endregion */

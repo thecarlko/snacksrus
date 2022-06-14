@@ -56,7 +56,7 @@ function Descriptor()
     return (
 
         <div id="descriptor">
-            <h1 className="tagline">Pre-order for ...</h1>
+            <h1 className="tagline">What are you craving?</h1>
             <p className="instructions">Tap to select</p>
         </div>
 
@@ -171,7 +171,7 @@ function HomeFooter(props: IFooterProperties)
             </svg>                                      
             </div>
 
-            <p>Tag line ...</p>
+            <p>Houston, TX</p>
 
         </div>
 
@@ -189,7 +189,7 @@ function HomeFooter(props: IFooterProperties)
             </svg>                    
             </button>
 
-            <p><>&prcue;</>swipe<>&sccue;</></p>
+            <p><>&#x0227C;&nbsp;</>scroll<>&nbsp;&#x0227D;</></p>
 
 
             <button

@@ -10,7 +10,11 @@ import * as React from "react";
 
 
 
-  ;
+enum EStepperOperationType
+{
+    increment, 
+    decrement
+}
 
 /**
  * @param value - Has to be a useState variable
@@ -22,15 +26,15 @@ interface IStepperProperties
     value: number;
     max: number; 
 
-    onStepperChange : (value) => void; 
+    onStepperChange : (value, type?: EStepperOperationType) => void; 
 }
 
 function Stepper(props: IStepperProperties)
 {
 
-    const setValue = React.useCallback((settable: number) => 
+    const setValue = React.useCallback((settable: number, type: EStepperOperationType) => 
     {
-        props.onStepperChange(settable); 
+        props.onStepperChange(settable, type); 
 
     }, []); 
 
@@ -43,7 +47,7 @@ function Stepper(props: IStepperProperties)
             disabled={ props.value === props.min }
             onClick={() => 
             {
-                setValue(props.value - 1); 
+                setValue(props.value - 1, EStepperOperationType.decrement); 
             }}
             className="icon">
             <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -61,7 +65,7 @@ function Stepper(props: IStepperProperties)
             disabled={ props.value === props.max }
             onClick={() => 
             {
-                setValue(props.value + 1); 
+                setValue(props.value + 1, EStepperOperationType.increment); 
             }}
             className="icon">
                 <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -76,7 +80,7 @@ function Stepper(props: IStepperProperties)
 }
 
 
-export { Stepper }
+export { Stepper, EStepperOperationType }
 
 
 

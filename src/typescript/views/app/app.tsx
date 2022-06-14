@@ -14,6 +14,8 @@ import { Vendible } from "../vendible/vendible";
 import { Profile } from "../modal/profile";
 import { onAuthStateChanged, signInAnonymously, User } from "firebase/auth";
 import { Client } from "../../models/client";
+import { toASCII } from "punycode";
+import { cli } from "webpack-dev-server";
 
 
 
@@ -42,29 +44,25 @@ function App(props: IAppProperties)
     const [categories, setCategories] = React.useState<Category[]>([]); 
     const [cartItems, addToCart] = React.useReducer((items: CartProduct[], info: { product: CartProduct, count: number }) => 
     {
+        if (info.product === undefined && info.count === 0) { return [] };
+        let values = [...items]
 
-        if (info.product === undefined && info.count == 0)
+        const productIndex = values.findIndex((product) => product.id === info.product.id); 
+        if (productIndex === -1) 
         {
-            return []; 
+            values.push(info.product); 
         }
 
-        let values = [...items];
+        const item = values.find((product) => product.id === info.product.id); 
+        const total = item.quantity + info.count; 
 
-        const productIndex = values.findIndex((item) => item.id === info.product.id);
-        if (productIndex === -1)
+        if (total === 0)
         {
-            values.push(info.product);
+            values = values.filter((itm) => itm.id !== info.product.id); 
         }
+        else { item.quantity = total;  }
 
-        const product = values.find((productInfo) => productInfo.id === info.product.id); 
-        const total = product.quantity + info.count; 
-
-        product.quantity = total; 
-        if (product.quantity === 0) { values = values.filter((itm) => itm.id !== product.id) }
-
-        console.log(values);
-
-        return [...values]; 
+        return values; 
 
     }, []);
     // #endregion
@@ -105,15 +103,6 @@ function App(props: IAppProperties)
     }, []); 
     // #endregion
 
-    // #region Authenticate 
-    React.useEffect(() => 
-    {
-        console.log(client); 
-
-
-    }, [client]); 
-    // #endregion
-
     // #region Component
     return (
     <>
@@ -126,7 +115,6 @@ function App(props: IAppProperties)
 
         <Routes>
             <Route index element={ <Home cats={ categories } />  } />
-            {/* <Route index element={ <Checkout products={ cartItems } setProducts={ addToCart } setModal={ setActiveModal }  />  } /> */}
             <Route path="/store/:id" element={ <Store cats={ categories } /> } />
             <Route path="/:id/:id" element={ <Vendible addProductToCart={ addToCart } cats={ categories } /> } />
         </Routes>

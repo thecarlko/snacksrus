@@ -124,9 +124,10 @@ class Network
     // #region Fetch Client Deliveries
     static async fetchClientDeliveries(clientID: string) : Promise<Order[]>
     {
-        const deliveryQuery = query(collection(database, `orders`), where(`user`, `==`, clientID), where(`delivered`, "==", false));
+        const deliveryQuery = query(collection(database, `orders`), where("orderedTime", "!=", null), where("user", "==", clientID));
         const snapshot = await getDocs(deliveryQuery);
 
+        // console.log(snapshot.docs); 
         const orders = snapshot.docs.map((orderSnapshot) => new Order(orderSnapshot)); 
         return orders; 
     }
@@ -159,14 +160,15 @@ class Network
     static async confirmOrder(userID: string, order: Cart)
     {
         const orderReference = doc(database, `orders`, order.id);
-        const items = order.products.map((prod) => { return JSON.stringify({ id: prod.id, quantity: prod.quantity }) });
+        const items = order.products.map((prod) => { return JSON.stringify(prod) });
 
         const orderTime = new Timestamp((Date.now() / 1000), 0); 
 
         await setDoc(orderReference, 
         {
             products: items, 
-            orderedTime: orderTime, 
+            orderedTime: orderTime,
+            delivered: false 
 
         }, { merge: true }); 
 

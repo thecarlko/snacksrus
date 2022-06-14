@@ -24,6 +24,8 @@
     align-items: center; 
     justify-content: space-between;
 
+    margin-bottom: 8vh;
+
 }
 
 #profile .header > .profile
@@ -56,6 +58,55 @@
 
 
 
+/* #region Delivery */
+#deliveries > .content
+{
+    display: grid; 
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1rem 1rem;
+}
+
+div.delivery
+{
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    justify-content: space-between;
+
+    height: 12rem;
+
+    border: 1px solid var(--gray);
+    border-radius: 1rem; ;
+}
+
+div.delivery > .scrollview 
+{
+    height: 8rem; ;
+    padding: 0px 1.5rem; 
+    padding-top: 1rem; 
+    
+    border-bottom: 1px solid var(--gray);
+}
+
+div.delivery > .scrollview .content 
+{
+    padding-left: 1rem;
+}
+
+div.delivery > .scrollview .content > div.image 
+{
+    height: 4rem; 
+    width: 4rem;
+
+    margin-right: 1rem;
+}
+
+div.delivery > div.info 
+{
+    width: 100%;
+    padding: 0.5rem 1rem; 
+}
+/* #endregion */
 
 
 

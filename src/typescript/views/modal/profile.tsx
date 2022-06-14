@@ -47,10 +47,10 @@ function Profile(props: IProfilePageProperties)
 
     const fetchPurchased = React.useCallback(async () => 
     {
-        if (!props.client) { return; }
+        // if (!props.client) { return; }
 
-        const values = await Network.fetchPurchases(props.client.user.uid); 
-        setPurchaseOrders(values); 
+        // const values = await Network.fetchPurchases(props.client.user.uid); 
+        // setPurchaseOrders(values); 
 
     }, [props.client]); 
     // #endregion
@@ -73,23 +73,27 @@ function Profile(props: IProfilePageProperties)
             </div>
         </div>
 
-        <Region header="Deliveries" content=
+        <Region articleID="deliveries" header="Purchases" content=
         {
             (pendingOrders) &&
-            (pendingOrders.map((pnd, pndIndex) => 
-            <div className="delivery">
-                <p>{ pnd.id }</p>
-            </div>
-            ))
-        }/>
+            (pendingOrders.map((order, pndIndex) => 
+            <div key={ pndIndex } className="delivery">
 
+                <Scrollview axes={ Axis.horizontal } content=
+                {
+                    (order.cart.products.map((product, productIndex) => 
 
-        <Region header="Purchases" content=
-        {
-            (purchaseOrders) &&
-            (purchaseOrders.map((purchase, purchaseIndex) => 
-            <div className="delivery">
-                <p>{ purchase.id }</p>
+                        <div key={ productIndex } className="image">
+                            <img src={ product.imageURL } alt="" />
+                        </div>
+                    ))
+                }/>
+
+                <div className="info">
+                    <p className="truncated">{ order.getFormatedDate() }</p>
+                    <p className="small truncated">{ order.cart.products.length } items</p>
+                </div>
+
             </div>
             ))
         }/>

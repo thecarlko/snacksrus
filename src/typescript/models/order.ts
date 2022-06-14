@@ -4,7 +4,8 @@
 
 
 
-import { QueryDocumentSnapshot, DocumentData } from "firebase/firestore";
+import { QueryDocumentSnapshot, DocumentData, Timestamp } from "firebase/firestore";
+import moment from "moment";
 import { CartProduct } from "./product";
 
 
@@ -14,12 +15,27 @@ class Order
     id: string; 
 
     userID: string; 
+    cart: Cart; 
 
-    constructor(data: QueryDocumentSnapshot<DocumentData>)
+    orderedTime : Timestamp | undefined; 
+
+    constructor(snapshot: QueryDocumentSnapshot<DocumentData>)
     {
-        this.id = data.id; 
+        this.id = snapshot.id; 
+        this.userID = snapshot.data().user;
 
-        this.userID = data.data().data; 
+        this.orderedTime = snapshot.data().orderedTime ? snapshot.data().orderedTime : undefined; 
+        
+        const data = (snapshot.data().products as any[]).map((json) => JSON.parse(json)); 
+        const items = data.map((cartData) => new CartProduct(cartData));
+
+        this.cart = new Cart(snapshot.id, this.userID, items); 
+    }
+
+    getFormatedDate()
+    {
+        const date = moment(this.orderedTime.toDate()); 
+        return date.fromNow(); 
     }
 }
 

@@ -69,7 +69,7 @@ class CartProduct
 
     price: number; 
 
-    constructor(item: Product)
+    constructor(item: any)
     {
         this.id = item.id; 
 

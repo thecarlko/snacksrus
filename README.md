@@ -40,6 +40,7 @@ Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nam dolor fugiat commo
 * [React.js](https://reactjs.org/) (FrontEnd Framework)
 * [TypeScript](https://www.typescriptlang.org/) (Adding types to JavaScript)
 * [WebPack](https://webpack.js.org/) (App Bundler)
+* [MomentJS](https://momentjs.com/) (Time Parsing)
 
 
 
