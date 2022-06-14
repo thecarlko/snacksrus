@@ -16,7 +16,7 @@
 #display-tag 
 {
     position: sticky; 
-    top: 12vh; 
+    top: 18vh; 
     z-index: -1; 
 
     height: 12vh;
@@ -33,7 +33,7 @@
 
 #display-tag h1 
 {
-    font-size: 280%;
+    font-size: 200%;
     text-align: center;
 }
 
@@ -42,7 +42,7 @@
 #categories-chips
 {
     position: sticky; 
-    top: 2rem; 
+    top: 3rem; 
     height: 3rem;
 
     z-index: 5; 
@@ -102,6 +102,7 @@
     margin-bottom: 10vmin;
 
     cursor: pointer;
+    color: var(--foreground); 
 }
 
 #store-items .product.active 

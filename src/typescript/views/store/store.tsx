@@ -36,7 +36,8 @@ function Store(props: IStoreProperties)
 
         const id = getIDfromURL(window.location.pathname); 
 
-        const value = props.cats.findIndex((cat) => cat.id === id); 
+        const value = props.cats.findIndex((cat) => cat.id === id);
+        if (value === -1) { return 0; }
         return value; 
 
     }, [location, props.cats]); 

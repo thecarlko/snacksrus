@@ -33,6 +33,8 @@ interface IModalProperties
     setModalActive: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
+let dismissCount : number = 0; 
+
 
 function Modal(props: IModalProperties)
 {
@@ -44,15 +46,15 @@ function Modal(props: IModalProperties)
         <div
         onClick={(event) => 
         {
-            // const target 
+
             if ((event.target as HTMLDivElement).id === `modal`)
             {
                 props.setModalActive(false); 
-
+                dismissCount ++; 
             }
         }}
         id="modal"
-        className={ (props.modalActive) ? ` active` : `` }>
+        className={ `${ (dismissCount > 0) ? `dismissed` : "" }${ (props.modalActive) ? ` active` : ``}` }>
         {
         <>
 
@@ -70,6 +72,7 @@ function Modal(props: IModalProperties)
                 (props.page === modalPage.profile) &&
                 <Profile
                 client={ props.ct }
+                setModal={ props.setModalActive }
                 />
             }
             

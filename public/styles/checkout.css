@@ -193,7 +193,7 @@
     justify-content: flex-start;
     align-items: flex-start;
 
-    gap: 0px 2rem; 
+    gap: 1rem 2rem; 
 }
 
 #finance > .content > .textfield 
@@ -210,6 +210,11 @@
 /* #endregion */
 
 /* #region Call to Action */
+#modal.active #checkout #submit 
+{
+    display: flex;
+}
+
 #checkout #submit 
 {
     position: fixed; 
@@ -217,7 +222,7 @@
     left: 0px; 
     right: 0px; ;
 
-    display: flex; 
+    display: none; 
     align-items: center; 
     justify-content: center;
     

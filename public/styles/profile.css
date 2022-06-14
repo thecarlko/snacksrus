@@ -30,8 +30,8 @@
 
 #profile .header > .profile
 {
-    height: 5rem; 
-    width: 5rem;
+    height: 4rem; 
+    width: 4rem;
 
     border-radius: 100%; 
     border: 1px solid var(--gray);
@@ -55,7 +55,6 @@
     align-items: flex-start;
 }
 /* #endregion */
-
 
 
 /* #region Delivery */
@@ -108,5 +107,34 @@ div.delivery > div.info
 }
 /* #endregion */
 
+
+/* #region Purchases */
+
+
+#profile div.empty-state 
+{
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    justify-content: space-between;
+}
+
+#profile div.empty-state > h2 
+{
+    font-family: var(--display);
+    width: 100%;
+}
+
+#profile div.empty-state > div.illustration 
+{
+    width: 36vmin; 
+    height: 36vmin; 
+    min-width: 240px; 
+    min-height: 240px;
+    
+    padding: 1rem 1rem;
+    margin: 0rem 0px; 
+}
+/* #endregion */
 
 

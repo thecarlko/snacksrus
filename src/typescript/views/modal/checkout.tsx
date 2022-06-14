@@ -113,7 +113,7 @@ function Checkout(props: ICheckoutProperties)
 
 
                     <Link 
-                    to={ `/store/chewies` }
+                    to={ `/store` }
                     children=
                     {
                         <button
@@ -265,7 +265,7 @@ function Checkout(props: ICheckoutProperties)
 interface ICartItemProperties 
 {
     product: CartProduct; 
-    setProducts: React.Dispatch<{ product: CartProduct; count: nmber; }>;
+    setProducts: React.Dispatch<{ product: CartProduct; count: number; }>;
 }
 
 function CartItem(props: ICartItemProperties)

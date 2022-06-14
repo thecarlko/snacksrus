@@ -61,7 +61,7 @@ section#showcase
     height: 100%;
     min-height: 200px;
     max-height: 620px;
-    padding: 10vmin; 
+    padding: 14vmin; 
 
     display: flex; 
     align-items: center; 
@@ -141,21 +141,11 @@ section#pricing > div.trailing
     color: var(--background);
 
     border-radius: 2rem;
+    font-size: 0.9rem;
 
     transition-property: background-color, color, scale;
     transition-duration: 300ms;
     transition-timing-function: ease-in-out;
-}
-
-#buy.success
-{
-    background-color: var(--success);
-    color: var(--background);
-
-    transform: scale(1.1);
-    transform-origin: center;
-
-    pointer-events: none;
 }
 
 
@@ -188,7 +178,7 @@ section#pricing > div.trailing
 
     #cta > #buy 
     {
-        transform: translateY(130%);
+        transform: translateY(115%);
         
     }
 }

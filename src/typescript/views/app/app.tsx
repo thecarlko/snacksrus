@@ -115,7 +115,7 @@ function App(props: IAppProperties)
 
         <Routes>
             <Route index element={ <Home cats={ categories } />  } />
-            <Route path="/store/:id" element={ <Store cats={ categories } /> } />
+            <Route path="/store/*" element={ <Store cats={ categories } /> } />
             <Route path="/:id/:id" element={ <Vendible addProductToCart={ addToCart } cats={ categories } /> } />
         </Routes>
 
