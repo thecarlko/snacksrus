@@ -4,18 +4,24 @@
 
 
 import * as React from "react"
-import { Link } from "react-router-dom";
+import { render } from "react-dom";
+import { Link, useResolvedPath } from "react-router-dom";
+import { Network } from "../../admin/network";
 import { Grid } from "../../components/grid";
+import { Region } from "../../components/region";
 import { Axis, Scrollview } from "../../components/scrollview";
 import { Stepper } from "../../components/stepper";
 import { Textfield, textfieldType } from "../../components/textfield";
 import { Toggle } from "../../components/toggle";
+import { Client } from "../../models/client";
+import { Cart, Order } from "../../models/order";
 import { CartProduct, Product } from "../../models/product";
 
 
 
 interface ICheckoutProperties 
 {
+    currentClient: Client; 
     products: CartProduct[]; 
     setProducts: React.Dispatch<{ product: CartProduct; count: number; }>;
     setModal: React.Dispatch<React.SetStateAction<boolean>>;
@@ -26,6 +32,7 @@ function Checkout(props: ICheckoutProperties)
 
     const [hidePassword, setHidePassword] = React.useState(true); 
     const [anonymousCheckout, setAnonymousCheckout] = React.useState(false); 
+
 
     // #region Total 
     const total = React.useMemo(() => 
@@ -39,6 +46,29 @@ function Checkout(props: ICheckoutProperties)
     }, [props.products]); 
     // #endregion
 
+    const renderOrder = React.useCallback(() => 
+    {
+        if (!props.currentClient) { return }
+        const item = new Cart(props.currentClient.cartID, props.currentClient.user.uid, props.products); 
+
+        return item; 
+
+    }, [props.products, props.currentClient])
+
+    // #region Set Order
+    const confirmOrder = React.useCallback(() => 
+    {
+        if (!props.currentClient) { return; }
+
+        Network.confirmOrder(props.currentClient.user.uid, renderOrder())
+        .then(() => 
+        {
+            props.setProducts({ product: undefined, count: 0 }); 
+            props.setModal(false); 
+        }); 
+
+    }, [props.currentClient, props.products]); 
+    // #endregion
 
     // #region Component
     return (
@@ -74,10 +104,6 @@ function Checkout(props: ICheckoutProperties)
 
                 <div className="empty-state">
                 <Link 
-                onClick={ () => 
-                {
-                    props.setModal(false); 
-                }}
                 to={ `/store/chewies` }
                 children=
                 {
@@ -89,6 +115,7 @@ function Checkout(props: ICheckoutProperties)
             </section>
 
 
+            { false &&
             <section className="authentication">
                 <div className="header">
                 <p className="label">Anonymous purchase</p>
@@ -165,10 +192,37 @@ function Checkout(props: ICheckoutProperties)
                 />
                 </form> }
             </section>
+            }
 
+            <Region articleID="finance" header="Billing" content=
+            {
+            <>
+                <Textfield
+                readOnly
+                type={ textfieldType.text }
+                placeholder="Credit Card"
+                class="credit"
+                initialValue="0000-0000-0000-0000"
+                />
+
+
+                <Textfield
+                readOnly
+                type={ textfieldType.number }
+                placeholder="CCV"
+                class="ccv"
+                initialValue={ `000` }
+                />
+
+            </>
+            }/>
 
             <section id="submit">
                 <button
+                onClick={ () => 
+                {   
+                    confirmOrder(); 
+                }}
                 disabled={ props.products.length === 0 }
                 >Set Order</button>
             </section>
@@ -182,6 +236,7 @@ function Checkout(props: ICheckoutProperties)
     
     )
     // #endregion
+
 
 }
 

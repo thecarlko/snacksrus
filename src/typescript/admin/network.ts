@@ -4,13 +4,15 @@
 
 
 import { FirebaseApp, initializeApp } from "firebase/app";
-import { addDoc, collection, doc, getDoc, getDocs, getFirestore, query, setDoc, where } from "firebase/firestore";
+import { addDoc, arrayUnion, collection, doc, getDoc, getDocs, getFirestore, query, setDoc, Timestamp, where } from "firebase/firestore";
 import { getDownloadURL, getStorage, ref } from "firebase/storage";
-import { getAuth } from "firebase/auth";
+import { getAuth, User } from "firebase/auth";
 import { getTokenSourceMapRange } from "typescript";
 import { Category } from "../models/category";
 import { Product } from "../models/product";
-import { Order } from "../models/order";
+import { Cart, Order } from "../models/order";
+import { ADDRGETNETWORKPARAMS } from "dns";
+import { Client } from "../models/client";
 
 const firebaseConfiguration = 
 {
@@ -138,6 +140,44 @@ class Network
 
         const orders = snapshot.docs.map((orderSnapshot) => new Order(orderSnapshot)); 
         return orders; 
+    }
+    // #endregion
+
+    // #region Fetch Client 
+    static async fetchClient(user: User) : Promise<Client>
+    {
+        const document = doc(database, `clients`, user.uid);
+        const data = await getDoc(document); 
+
+        const responce = new Client(data, user); 
+        return responce; 
+
+    }
+    // #endregion
+
+    // #region Set Order for user
+    static async confirmOrder(userID: string, order: Cart)
+    {
+        const orderReference = doc(database, `orders`, order.id);
+        const items = order.products.map((prod) => { return JSON.stringify({ id: prod.id, quantity: prod.quantity }) });
+
+        const orderTime = new Timestamp((Date.now() / 1000), 0); 
+
+        await setDoc(orderReference, 
+        {
+            products: items, 
+            orderedTime: orderTime, 
+
+        }, { merge: true }); 
+
+        const documentReference = doc(database, `clients`, userID);
+        await setDoc(documentReference, 
+        {
+            orders: arrayUnion(order.id)
+
+        }, { merge: true });
+        
+        await Network.createCartForUser(userID);
     }
     // #endregion
 

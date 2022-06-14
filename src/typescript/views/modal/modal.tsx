@@ -59,6 +59,7 @@ function Modal(props: IModalProperties)
             {
                 (props.page === modalPage.cart) &&
                 <Checkout
+                currentClient={ props.ct }
                 setProducts={ props.setCartItems }
                 products={ props.cartItems }
                 setModal={ props.setModalActive }

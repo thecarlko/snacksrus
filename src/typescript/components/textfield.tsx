@@ -20,11 +20,16 @@ interface ITextfieldProperties
 {
     type: textfieldType,
     placeholder : string, 
+
     leadIcon?: JSX.Element, 
     trailIcon?: JSX.Element, 
+    readOnly?: boolean; 
+    initialValue?: string; 
 
     id? : string; 
     class?: string; 
+    numbersOnly?: boolean; 
+
 
     /**
      * Invoked when the user is about to type
@@ -63,6 +68,54 @@ function Textfield(props: ITextfieldProperties)
     const [focused, setFocused] = React.useState(false); 
     const [error, setError] = React.useState(false); 
 
+    const inputRef = React.useRef<HTMLInputElement>(undefined); 
+
+    React.useEffect(() => 
+    {
+
+        if (!inputRef || (props.initialValue == undefined)) { return; }
+
+        inputRef.current.value = props.initialValue; 
+
+    }, [inputRef]);
+
+
+    // #region Approvals
+    const keyApprovedAsNumber = React.useCallback((event: React.KeyboardEvent<HTMLInputElement>) => 
+    {
+        let acceptable = false; 
+
+        switch (event.key)
+        {
+            case "Tab":
+                acceptable = true; 
+                break;
+
+            case "Backspace":
+                acceptable = true; 
+                break;
+
+            case "Enter":
+                acceptable = true; 
+                break;
+
+            case "CapsLock":
+                acceptable = true; 
+                break;
+
+            case "Shift":
+                acceptable = true; 
+                break;
+
+            case "Control":
+                acceptable = true; 
+                break;
+        }
+
+        return acceptable; 
+
+    }, []); 
+    // #endregion 
 
     // #region Component
     return (
@@ -86,10 +139,21 @@ function Textfield(props: ITextfieldProperties)
                 <input
                     placeholder={ props.placeholder }
                     id={ id }
+                    readOnly={ props.readOnly ? props.readOnly : false }
                     type={ props.type } 
+                    ref={ inputRef }
                     onFocus = { onFocusInEvent } 
                     onChange = { (event) => { onEditEvent(event.target.value) }} 
                     onBlur = { eve => { onChangedEvent(eve.target.value) }}
+                    onKeyDown={ (event) =>
+                    {
+                        if (!props.numbersOnly) { return; }
+                        if (isNaN(parseInt(event.key)))
+                        {
+                            let passed = keyApprovedAsNumber(event);
+                            if (passed == false) { event.preventDefault();  }
+                        }
+                    }}
                     onKeyUp = { (event) =>
                     {
                         if (event.key == "Enter") { onCommitEvent((event.target as HTMLInputElement).value) }
@@ -141,6 +205,8 @@ function Textfield(props: ITextfieldProperties)
         if (props.onTextfieldCommit) { props.onTextfieldCommit(value); }
     }
     // #endregion
+
+
 
 }
 

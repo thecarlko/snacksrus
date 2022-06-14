@@ -5,6 +5,7 @@
 
 
 import { QueryDocumentSnapshot, DocumentData } from "firebase/firestore";
+import { CartProduct } from "./product";
 
 
 class Order
@@ -22,8 +23,23 @@ class Order
     }
 }
 
+class Cart 
+{
+    id: string; 
 
-export { Order }
+    userID: string; 
+    products: CartProduct[]; 
+
+    constructor(id : string, userid : string, items: CartProduct[])
+    {
+        this.id = id; 
+
+        this.userID = userid;  
+        this.products = items; 
+    }
+}
+
+export { Order, Cart }
 
 
 

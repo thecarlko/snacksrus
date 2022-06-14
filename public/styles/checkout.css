@@ -177,6 +177,30 @@
 }
 /* #endregion */
 
+/* #region Finance */
+#finance > .content
+{
+    display: flex; 
+    flex-wrap: wrap; 
+    justify-content: flex-start;
+    align-items: flex-start;
+
+    gap: 0px 2rem; 
+}
+
+#finance > .content > .textfield 
+{
+    border-radius: 0.5rem; 
+    border: 1px solid var(--gray);
+}
+
+#finance > .content > .ccv 
+{
+    width: 80px;
+
+}
+/* #endregion */
+
 /* #region Call to Action */
 #checkout #submit 
 {

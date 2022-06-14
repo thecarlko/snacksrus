@@ -43,6 +43,11 @@ function App(props: IAppProperties)
     const [cartItems, addToCart] = React.useReducer((items: CartProduct[], info: { product: CartProduct, count: number }) => 
     {
 
+        if (info.product === undefined && info.count == 0)
+        {
+            return []; 
+        }
+
         let values = [...items];
 
         const productIndex = values.findIndex((item) => item.id === info.product.id);
@@ -78,7 +83,7 @@ function App(props: IAppProperties)
                 return; 
             }
 
-            const client = new Client(user); 
+            const client = await Network.fetchClient(user); 
             setClient(client); 
 
         });
@@ -121,6 +126,7 @@ function App(props: IAppProperties)
 
         <Routes>
             <Route index element={ <Home cats={ categories } />  } />
+            {/* <Route index element={ <Checkout products={ cartItems } setProducts={ addToCart } setModal={ setActiveModal }  />  } /> */}
             <Route path="/store/:id" element={ <Store cats={ categories } /> } />
             <Route path="/:id/:id" element={ <Vendible addProductToCart={ addToCart } cats={ categories } /> } />
         </Routes>
