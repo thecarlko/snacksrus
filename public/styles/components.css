@@ -76,6 +76,7 @@ div.stepper
     justify-content: space-between;
 
     width: max-content;
+    height: 2rem;
 }
 
 div.stepper > input 

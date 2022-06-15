@@ -94,6 +94,14 @@ function HomeShowcase(props: IHomeShowcaseProperties)
     }, [props.index]); 
     // #endregion
 
+    // #region Scroll variables
+    const scrollThreshhold : number = 0.4; 
+    let startTouch : React.TouchEvent<HTMLElement> = undefined; 
+    let endTouch : React.TouchEvent<HTMLElement> = undefined; 
+
+    let touchStartTimer : number = 0; 
+    let touchEndTimer : number = 0;
+    // #endregion
 
 
     React.useEffect(() => 
@@ -115,7 +123,38 @@ function HomeShowcase(props: IHomeShowcaseProperties)
 
     <>
 
-    <div className="scrollview horizontal">
+    <div
+    onTouchStart={ (event) => 
+    {
+
+        startTouch = event;
+        touchStartTimer = Date.now();
+    }}
+    onTouchEnd={ (event) => 
+    {
+        endTouch = event;
+        touchEndTimer = Date.now();
+
+        let distance = ((endTouch.changedTouches[0].pageX) - (startTouch.changedTouches[0].pageX));
+        let time = (touchEndTimer - touchStartTimer);
+        let velocity = (distance / time);
+
+
+        //Scroll Left
+        if ((velocity > scrollThreshhold))
+        {
+            if (props.index == 0) { return; }
+            props.setIndex((ind) => ind - 1); 
+        }
+        // Scroll Right
+        else if ((velocity < -scrollThreshhold))
+        {
+            if (props.index == props.categories.length - 1) { return; }
+            props.setIndex((ind) => ind + 1); 
+        }
+
+    }}
+    className="scrollview horizontal">
     <div className="viewport">
     <div className="content" style={{ transform: `translateX(-${ 100 * props.index }vw)` }}>
     <>

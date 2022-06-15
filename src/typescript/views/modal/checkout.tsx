@@ -5,7 +5,7 @@
 
 import * as React from "react"
 import { render } from "react-dom";
-import { Link, useResolvedPath } from "react-router-dom";
+import { Link, useNavigate, useResolvedPath } from "react-router-dom";
 import { Network } from "../../admin/network";
 import { Grid } from "../../components/grid";
 import { Region } from "../../components/region";
@@ -33,6 +33,8 @@ interface ICheckoutProperties
 
 function Checkout(props: ICheckoutProperties)
 {
+    const navigate = useNavigate(); 
+
     const [successfulConfirmation, setSuccessfulConfirmation] = React.useState(false); 
     const [hidePassword, setHidePassword] = React.useState(true); 
     const [anonymousCheckout, setAnonymousCheckout] = React.useState(false); 
@@ -72,6 +74,8 @@ function Checkout(props: ICheckoutProperties)
                 
                 props.setProducts({ dispatchArray: [], product: undefined, count: 0 }); 
                 props.setModal(false);
+
+                navigate(`/`); 
 
                 setSuccessfulConfirmation(false); 
 

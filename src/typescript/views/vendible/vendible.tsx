@@ -13,6 +13,9 @@ import { Stepper } from "../../components/stepper";
 import { Category } from "../../models/category";
 import { CartProduct, Product } from "../../models/product";
 import { getIDfromURL } from "../../utilities/getId";
+import Vibrant from "node-vibrant"
+import { Color, RGB } from "../../core/color";
+
 
 
 interface IVendibleProperties 
@@ -68,6 +71,7 @@ function Vendible(props: IVendibleProperties)
 
     }, [product, count]); 
     // #endregion
+
 
     return (
 
