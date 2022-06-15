@@ -87,7 +87,7 @@
 #home > div.scrollview.horizontal > div.viewport > div.content 
 {
     transition-property: transform;
-    transition-duration: 01s;
+    transition-duration: 750ms;
 
     height: 100%;
     

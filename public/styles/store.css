@@ -50,13 +50,10 @@
 #categories-chips
 {
     position: sticky; 
-    top: 3rem; 
+    top: 3.25rem; 
     height: 3rem;
 
     z-index: 5; 
-
-    padding: 4vh 0px; 
-
     background-color: var(--background); ;
 
 

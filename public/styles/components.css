@@ -82,7 +82,7 @@ div.stepper
 div.stepper > input 
 {
     width: 2rem;
-    height: 1rem; 
+    height: 2rem; 
 
     text-align: center;
     pointer-events: none;

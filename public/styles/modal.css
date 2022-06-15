@@ -28,6 +28,7 @@
     justify-content: center;
 
     padding-top: 8vh;
+    animation-duration: 400ms;
 }
 
 #modal.dismissed
@@ -36,7 +37,6 @@
     pointer-events: none;
 
     animation-name: dismiss;
-    animation-duration: 300ms; 
     animation-timing-function: ease-in-out;
     animation-fill-mode: forwards;
 }
@@ -71,7 +71,6 @@
     pointer-events: all;
 
     animation-name: showModal;
-    animation-duration: 300ms; 
     animation-timing-function: ease-in-out;
 }
 
