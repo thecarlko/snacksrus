@@ -52,7 +52,7 @@ function Store(props: IStoreProperties)
     <>
 
         <div id="display-tag">
-            <h1>Lorem ipsum, dolor sit amet consectetur adipisicing elit.</h1>
+            <h1>Hoc est pro dulcis bonitas quae facit vitae pretium vitae</h1>
         </div>
 
 
