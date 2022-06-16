@@ -70,7 +70,7 @@ function Profile(props: IProfilePageProperties)
             <Region articleID="deliveries" header="Purchases" content=
             {
                 
-                (pendingOrders.map((order, pndIndex) => 
+                (pendingOrders.sort((a, b) => b.orderedTime.toDate().getTime() - a.orderedTime.toDate().getTime()).map((order, pndIndex) => 
                 <div key={ pndIndex } className="delivery">
 
                     <Scrollview axes={ Axis.horizontal } content=
