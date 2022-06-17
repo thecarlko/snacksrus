@@ -23,6 +23,7 @@
   <h3 align="center">Snacks R Us</h3>
 
   <div align="center">
+    <a target="_blank" href="https://snacks-r-us.web.app">View Live &#8599;</a> ·
     <a href="https://github.com/cxrlko/wordscrambler/blob/master/LICENSE.txt">Licence</a>
   </div>
 
