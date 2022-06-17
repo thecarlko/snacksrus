@@ -18,9 +18,9 @@
 
 <div align="center">
 
-  <img width="1536" alt="project" src="https://user-images.githubusercontent.com/98195031/170782760-a131ebe1-2b20-4741-b844-eb6150e9854b.png">
+  <img width="1536" alt="project" src="https://user-images.githubusercontent.com/98195031/174299795-455decb6-bf19-45d6-957c-a6181ed152f1.png">
 
-  <h3 align="center">Word Scrambler</h3>
+  <h3 align="center">Snacks R Us</h3>
 
   <div align="center">
     <a href="https://github.com/cxrlko/wordscrambler/blob/master/LICENSE.txt">Licence</a>
