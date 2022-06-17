@@ -31,7 +31,7 @@
 
 ## About
 
-Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nam dolor fugiat commodi quam. Earum nobis laborum repudiandae eveniet at illum dicta repellendus ab voluptatum alias, asperiores doloremque esse eligendi officiis eius? Excepturi ea quia, fugit quo ad aspernatur, eaque, quam ut vero voluptatibus illum? Hic voluptatem quasi obcaecati architecto animi et suscipit, iure dolor, autem beatae rem. Placeat dolorum maiores iusto qui inventore dolore id reiciendis nemo illum delectus temporibus possimus iure mollitia praesentium error, aliquam odit consectetur nostrum. Illum iste iure ab velit asperiores temporibus hic aliquid commodi eum, quasi, quaerat praesentium a qui vero consequuntur optio voluptatibus suscipit!
+Friendly, clean and whimsical Snacks R Us is a website for a fictional company that retails snacks. It has a clean and minimal interface following the “whimsical simplicity” of the brand and had a major focus on the checkout user experience.
 
 
 ## Tech Stack
