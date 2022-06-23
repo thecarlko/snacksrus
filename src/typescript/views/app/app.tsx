@@ -95,7 +95,8 @@ function App(props: IAppProperties)
     {
 
         const categories  = await Network.fetchCategories(); 
-        const products = await Promise.all(categories.map((cat) => Network.fetchCategoryProducts(cat.id))); 
+        const productPromises = categories.map((cat) => Network.fetchCategoryProducts(cat.id));
+        const products = await Promise.all(productPromises); 
 
         const mappedCategories = categories.map((cat, index) => 
         {
