@@ -3,7 +3,7 @@
 
 
 <!-- PROJECT LOGO -->
-# Word Scrambler
+# Snacks R Us · E-commerce
 <br>
 <br>
 <br>
@@ -18,11 +18,12 @@
 
 <div align="center">
 
-  <img width="1536" alt="project" src="https://user-images.githubusercontent.com/98195031/170782760-a131ebe1-2b20-4741-b844-eb6150e9854b.png">
+  <img width="1536" alt="project" src="https://user-images.githubusercontent.com/98195031/174300091-fc78efff-3c50-4457-b67b-1ea639258e2c.png">
 
-  <h3 align="center">Word Scrambler</h3>
+  <h3 align="center">Snacks R Us</h3>
 
   <div align="center">
+    <a target="_blank" href="https://snacks-r-us.web.app">View Live &#8599;</a> ·
     <a href="https://github.com/cxrlko/wordscrambler/blob/master/LICENSE.txt">Licence</a>
   </div>
 
@@ -31,12 +32,12 @@
 
 ## About
 
-Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nam dolor fugiat commodi quam. Earum nobis laborum repudiandae eveniet at illum dicta repellendus ab voluptatum alias, asperiores doloremque esse eligendi officiis eius? Excepturi ea quia, fugit quo ad aspernatur, eaque, quam ut vero voluptatibus illum? Hic voluptatem quasi obcaecati architecto animi et suscipit, iure dolor, autem beatae rem. Placeat dolorum maiores iusto qui inventore dolore id reiciendis nemo illum delectus temporibus possimus iure mollitia praesentium error, aliquam odit consectetur nostrum. Illum iste iure ab velit asperiores temporibus hic aliquid commodi eum, quasi, quaerat praesentium a qui vero consequuntur optio voluptatibus suscipit!
+Friendly, clean and whimsical Snacks R Us is a website for a fictional company that retails snacks. It has a clean and minimal interface following the “whimsical simplicity” of the brand and had a major focus on the checkout user experience.
 
 
 ## Tech Stack
 
-* [Spotify API](https://developer.spotify.com/documentation/web-api) (Music Data)
+* [Firestore](https://firebase.google.com/products/firestore) (NoSQL Database)
 * [React.js](https://reactjs.org/) (FrontEnd Framework)
 * [TypeScript](https://www.typescriptlang.org/) (Adding types to JavaScript)
 * [WebPack](https://webpack.js.org/) (App Bundler)
@@ -74,13 +75,10 @@ npm install babel-core babel-loader babel-preset-env babel-preset-react --save-d
 ## Roadmap
 
 - [x] Home Page
-- [x] Add back to top links
+- [x] Anonymous purchases
 - [x] Add Additional Templates w/ Examples
-- [ ] Add "components" document to easily copy & paste sections of the readme
-- [ ] 
-  - [ ] 
-  - [ ] 
-
+- [ ] User authentication
+- [ ] Location mapping
 
 
 ## License
