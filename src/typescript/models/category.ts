@@ -27,11 +27,6 @@ class Category
     }
 
 
-    async setProducts()
-    {
-        const values = await Network.fetchCategoryProducts(this.id); 
-        this.items = values; 
-    }
 
 }
 

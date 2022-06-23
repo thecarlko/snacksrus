@@ -45,18 +45,13 @@ class Network
     // #region Fetch Categories 
     static async fetchCategories()
     {
-        let responce : Category[] = undefined; 
+
         const categoryCollection = collection(database, `store`);
 
-        await getDocs(categoryCollection)
-        .then((snapshot) =>
-        {
-            responce = (snapshot.docs).map((category) => { return new Category(category) });
-        })
-        .catch((error) => { console.error(`Error fetching categories: ${ error }`) });
+        const snapshot = await getDocs(categoryCollection); 
+        const categories = snapshot.docs.map((catJSON) => new Category(catJSON));
 
-        if (!responce) { console.error(`Couldn't fetch categories`); return; }
-        return responce; 
+        return categories; 
     }
     // #endregion
 
@@ -65,6 +60,7 @@ class Network
     {
         let responce : Product[];
 
+        console.log(`fetching products for: ${ categoryID }`); 
         const productCollection = collection(database, `store`, `${ categoryID }`, `items`);
         await getDocs(productCollection)
         .then((snapshot) =>

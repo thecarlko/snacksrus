@@ -16,6 +16,7 @@ import { onAuthStateChanged, signInAnonymously, User } from "firebase/auth";
 import { Client } from "../../models/client";
 import { toASCII } from "punycode";
 import { cli } from "webpack-dev-server";
+import { resolve } from "node:path/win32";
 
 
 
@@ -93,16 +94,26 @@ function App(props: IAppProperties)
     const setupPage = React.useCallback( async () => 
     {
 
-        const values  = await Network.fetchCategories(); 
-        for (const cat of values)
+        const categories  = await Network.fetchCategories(); 
+        const products = await Promise.all(categories.map((cat) => Network.fetchCategoryProducts(cat.id))); 
+
+        const mappedCategories = categories.map((cat, index) => 
         {
-            await cat.setProducts();    
-        }
+            cat.items = products[index]; 
+            return cat; 
+        })
 
-        setCategories(values); 
-
+        setCategories(mappedCategories); 
+        
     }, []); 
     // #endregion
+
+
+    async function getCatProduct(id: string)
+    {
+        console.log(`getting product: ${ id }`)
+        return await Network.fetchCategoryProducts(id);
+    }
 
     // #region Item Total 
     const itemTotal = React.useMemo<number>(() => 
