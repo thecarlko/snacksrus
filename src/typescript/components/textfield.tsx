@@ -1,6 +1,7 @@
 
 
 
+import { setegid } from "process";
 import * as React from "react";
 import { uuid } from "../utilities/uuid";
 
@@ -20,6 +21,10 @@ interface ITextfieldProperties
 {
     type: textfieldType,
     placeholder : string, 
+    error?: string; 
+
+    /** State value of string that the textfield will pass back */
+    setValue: React.Dispatch<React.SetStateAction<string>>; 
 
     leadIcon?: JSX.Element, 
     trailIcon?: JSX.Element, 
@@ -30,6 +35,11 @@ interface ITextfieldProperties
     class?: string; 
     numbersOnly?: boolean; 
 
+
+    /**
+     * @returns Boolean indicating whether the user entered the right information
+     */
+    auditor?: (value: string) => boolean; 
 
     /**
      * Invoked when the user is about to type
@@ -74,7 +84,6 @@ function Textfield(props: ITextfieldProperties)
     {
 
         if (!inputRef || (props.initialValue == undefined)) { return; }
-
         inputRef.current.value = props.initialValue; 
 
     }, [inputRef]);
@@ -120,10 +129,12 @@ function Textfield(props: ITextfieldProperties)
     // #region Component
     return (
 
-        <div
-        id={ props.id } 
-        className={ `textfield${ props.class ? ` ${ props.class }` : `` }${ (error) ? ` error` : `` }` }>
+    <div       
+    id={ props.id } 
+    className={ `textfield${ props.class ? ` ${ props.class }` : `` }${ (error) ? ` error` : `` }` }>
 
+
+        <div className="inputfield">
         {
             // - Lead Icon
             props.leadIcon &&
@@ -135,7 +146,6 @@ function Textfield(props: ITextfieldProperties)
         {
             // - Inputfield
             <div className="input">
-                {/* { (state.focussed == false) ? <label htmlFor={ id }>{ props.placeholder }</label> : <></> } */}
                 <input
                     placeholder={ props.placeholder }
                     id={ id }
@@ -171,6 +181,13 @@ function Textfield(props: ITextfieldProperties)
         }
         </div>
 
+
+        {
+            (props.error && props.error.length > 0) &&
+            <p className="error">{ props.error }</p>
+        }
+
+    </div>
     )
     // #endregion
 
@@ -188,6 +205,7 @@ function Textfield(props: ITextfieldProperties)
     function onEditEvent(value: string)
     {
         if (props.onTextfieldEdit) { props.onTextfieldEdit(value); }
+        props.setValue(value); 
     }
 
     function onChangedEvent(value: string)
@@ -196,6 +214,13 @@ function Textfield(props: ITextfieldProperties)
         {
             setFocused(false); 
         }
+
+        if (props.auditor)
+        {
+            const passed = props.auditor(value); 
+            setError(!passed); 
+        }
+
 
         if (props.onTextfieldChanged) { props.onTextfieldChanged(value); }
     }

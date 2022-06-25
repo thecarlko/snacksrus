@@ -6,7 +6,7 @@
 import { FirebaseApp, initializeApp } from "firebase/app";
 import { addDoc, arrayUnion, collection, doc, getDoc, getDocs, getFirestore, query, setDoc, Timestamp, where } from "firebase/firestore";
 import { getDownloadURL, getStorage, ref } from "firebase/storage";
-import { getAuth, User } from "firebase/auth";
+import { EmailAuthCredential, EmailAuthProvider, getAuth, linkWithCredential, signInWithEmailAndPassword, User } from "firebase/auth";
 import { getTokenSourceMapRange } from "typescript";
 import { Category } from "../models/category";
 import { CartProduct, Product } from "../models/product";
@@ -30,7 +30,7 @@ const firebaseConfiguration =
 const firebaseApp = initializeApp(firebaseConfiguration); 
 const database = getFirestore(firebaseApp);
 const storage = getStorage(firebaseApp);
-export const authentication = getAuth(firebaseApp); 
+const authentication = getAuth(firebaseApp); 
 
 
 class Network 
@@ -60,7 +60,6 @@ class Network
     {
         let responce : Product[];
 
-        console.log(`fetching products for: ${ categoryID }`); 
         const productCollection = collection(database, `store`, `${ categoryID }`, `items`);
         await getDocs(productCollection)
         .then((snapshot) =>
@@ -100,6 +99,27 @@ class Network
 
 
     //  ^ Authentication Flow
+    // #region Create Account 
+    static async createAccountEmailPassword(email: string, password: string)
+    {
+        let user : User = undefined; 
+        const emailCredential = EmailAuthProvider.credential(email, password);
+
+        try 
+        {
+            const cred = await linkWithCredential(authentication.currentUser, emailCredential); 
+            user = cred.user; 
+
+            authentication.updateCurrentUser(authentication.currentUser);
+        }
+        catch (error) 
+        {
+            console.log(`Error upgrading anonymous account: ${ error }`);
+        }
+
+    }
+    // #endregion
+
     // #region Create Cart 
     static async createCartForUser(userID: string)
     {
@@ -205,7 +225,7 @@ class Network
 
 
 
-export { Network }
+export { Network, authentication, storage }
 
 
 

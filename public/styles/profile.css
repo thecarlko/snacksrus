@@ -11,6 +11,13 @@
     padding: 0.4rem; 
 }
 
+.profile > img 
+{
+    width: 100%; 
+    height: 100%; 
+    object-fit: cover;
+}
+
 #profile > .viewport > .content 
 {
     padding: 0px 4vw; 
@@ -23,12 +30,14 @@
     display: flex; 
     align-items: center; 
     justify-content: space-between;
-
-    margin-bottom: 8vh;
-
 }
 
-#profile .header > .profile
+#profile .header > label
+{
+    cursor: pointer;
+}
+
+#profile .header > label.profile
 {
     height: 4rem; 
     width: 4rem;
@@ -37,11 +46,20 @@
     border: 1px solid var(--gray);
 }
 
-#profile .header > .profile > svg
+#profile .header div.profile > svg
 {
     padding: 1rem; 
     stroke: 0.5px;
 
+}
+
+#profile .header div.profile
+{
+    width: 100%; 
+    height: 100%;
+
+    border-radius: 10rem;
+    overflow: hidden;
 }
 
 #profile .header > .info
@@ -53,9 +71,42 @@
     flex-direction: column; 
     justify-content: center; 
     align-items: flex-start;
+
+    gap: 0.25rem; 
+}
+
+#profile .header > .info .chip 
+{
+    font-size: 0.9rem;
 }
 /* #endregion */
 
+
+/* #region Authentication */
+#profile #authentication 
+{
+    margin: 2rem 0px; 
+}
+
+#authentication .grid 
+{
+    margin: 1.5rem 0px; 
+}
+
+#authentication .grid > .textfield 
+{
+    width: 100%;
+}
+
+#authentication > div.confirm 
+{
+    display: flex; 
+    align-items: center; 
+    justify-content: center;
+
+    margin: 0.5rem 0px; 
+}
+/* #endregion */
 
 /* #region Delivery */
 #deliveries > .content
@@ -117,6 +168,8 @@ div.delivery > div.info
     flex-direction: column; 
     align-items: center; 
     justify-content: space-between;
+
+    margin: 5vh 0px; 
 }
 
 #profile div.empty-state > h2 

@@ -189,29 +189,53 @@ div.scrollview.vertical > div.viewport > div.content
 /* #endregion */
 
 /* #region Text Field */
-.textfield 
+.textfield
 {
     position: relative; 
+    display: flex; 
+    flex-direction: column;
+    align-items: center; 
 
+    width: 320px; 
+
+}
+
+.textfield > .inputfield 
+{
     display: flex; 
     align-items: center; 
     justify-content: flex-start;
 
-    width: 320px; 
+    gap: 0.5rem 0px; 
     height: 2.5rem;
-
     padding: 0.2rem 0.5rem; 
+
+    width: 100%; 
 
     border-radius: 0.5rem; 
     border: none;
 }
 
-.textfield.error 
+.textfield.error > .inputfield
 {
-    border: 1px solid var(--error);
+    border: 1px solid var(--error) !important;
 }
 
-.textfield > .icon 
+.textfield > p.error 
+{
+    font-size: 0.9rem; 
+    width: 100%; 
+    text-align: left;
+
+    margin: 0.1rem 0px; 
+}
+
+.textfield.border > .inputfield
+{
+    border: 1px solid var(--gray);
+}
+
+.textfield > .inputfield > .icon 
 {
     height: 100%;
     max-width: 100%;
@@ -220,7 +244,7 @@ div.scrollview.vertical > div.viewport > div.content
     stroke-width: 1;
 }
 
-.textfield > div.input 
+.textfield > .inputfield > div.input 
 {
     width: 100%;
     height: 100%;
@@ -228,25 +252,24 @@ div.scrollview.vertical > div.viewport > div.content
     display: flex; 
     justify-content: flex-start;
     align-items: center;
-
-    margin: 0px 0.5rem; 
 }
 
-.textfield > div.input > label 
+.textfield > .inputfield > div.input > label 
 {
     position: absolute; 
 }
 
-.textfield > div.input > input 
+.textfield > .inputfield > div.input > input 
 {
     width: 100%;
     height: 100%;
 }
 
-.textfield > div.input > input::placeholder
+.textfield > .inputfield > div.input > input::placeholder
 {
     color: var(--tint); 
 }
+
 /* #endregion */
 
 /* #region Toggle */

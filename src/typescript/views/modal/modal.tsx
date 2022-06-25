@@ -32,12 +32,13 @@ interface IModalProperties
         count: number;
     }>;  
 
+    dismissedCount: number; 
+
     page: modalPage; 
     modalActive: boolean; 
     setModalActive: React.Dispatch<React.SetStateAction<boolean>>;
+    setApplicationClient: React.Dispatch<React.SetStateAction<Client>>;
 }
-
-let dismissCount : number = 0; 
 
 
 function Modal(props: IModalProperties)
@@ -54,11 +55,10 @@ function Modal(props: IModalProperties)
             if ((event.target as HTMLDivElement).id === `modal`)
             {
                 props.setModalActive(false); 
-                dismissCount ++; 
             }
         }}
         id="modal"
-        className={ `${ (dismissCount > 0) ? `dismissed` : "" }${ (props.modalActive) ? ` active` : ``}` }>
+        className={ `${ (props.dismissedCount > 0) ? `dismissed` : "" }${ (props.modalActive) ? ` active` : ``}` }>
         {
         <>
 
@@ -77,6 +77,7 @@ function Modal(props: IModalProperties)
                 <Profile
                 client={ props.ct }
                 setModal={ props.setModalActive }
+                setAppClient={ props.setApplicationClient }
                 />
             }
             

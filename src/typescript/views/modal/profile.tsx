@@ -4,11 +4,17 @@
 
 
 
+import { updateEmail, updatePassword, updateProfile } from "firebase/auth";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import * as React from "react"
 import { Link } from "react-router-dom";
-import { Network } from "../../admin/network";
+import { convertToObject } from "typescript";
+import { authentication, Network, storage } from "../../admin/network";
+import { Chip } from "../../components/chip";
+import { Grid } from "../../components/grid";
 import { Region } from "../../components/region";
 import { Axis, Scrollview } from "../../components/scrollview"
+import { Textfield, textfieldType } from "../../components/textfield";
 import { Client } from "../../models/client"
 import { Order } from "../../models/order";
 
@@ -19,13 +25,26 @@ interface IProfilePageProperties
 {
     client: Client; 
     setModal: React.Dispatch<React.SetStateAction<boolean>>; 
+    setAppClient: React.Dispatch<React.SetStateAction<Client>>;
 }
 
 function Profile(props: IProfilePageProperties)
 {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    const [name, setName] = React.useState(undefined); 
+
+    const [email, setEmailText] = React.useState(""); 
+    const [emailError, setEmailError] = React.useState(undefined); 
+
+    const [password, setPasswordText] = React.useState(""); 
+    const [hidePassword, setHidePassword] = React.useState(true); 
+    const [passwordError, setPasswordError] = React.useState(undefined); 
+
+
+    const [showAuthentication, setShowAuthentication] = React.useState(false); 
 
     const [pendingOrders, setPendingOrders] = React.useState<Order[]>([]); 
-    const [purchaseOrders, setPurchaseOrders] = React.useState<Order[]>([]); 
 
     React.useEffect(() => 
     {
@@ -44,8 +63,77 @@ function Profile(props: IProfilePageProperties)
         setPendingOrders(values); 
 
     }, [props.client]); 
+    // #endregion
+
+    // #region Authenticate User
+    const formApproved = React.useMemo<boolean>(() => 
+    {
+        if (!props.client || props.client.user === undefined) { return false }
+
+        const emailApproved = emailRegex.test(email); 
+        const passwordApproved = password.length > 6; 
+
+        const changed = (email !== props.client.user.email);
+
+        return (emailApproved === true && passwordApproved === true && changed);
+
+    }, [email, password, props.client]); 
 
 
+
+
+    const handleAuthentication = React.useCallback(async () => 
+    {
+        if (!props.client) { return }
+        const anonymous = props.client.user.isAnonymous; 
+
+        // #region Anonymous
+        if (anonymous)
+        { 
+            Network.createAccountEmailPassword(email, password)
+            .then(() => 
+            {
+                setTimeout(() => {
+                    
+                    setShowAuthentication(false);
+                    props.setModal(false);
+
+                }, 500);
+            })
+
+            return; 
+        }
+        // #endregion
+
+        try 
+        {
+            updateEmail(authentication.currentUser, email); 
+            updatePassword(authentication.currentUser, password); 
+
+        } catch (error) { console.log(`Error updating user: ${ error }`) }
+
+
+
+
+    }, [props.client, email, password]);
+    // #endregion
+
+    // #region Set Profile Picture
+    const setProfilePicture = React.useCallback(async (file: File) => 
+    {
+        const profilePictureReference = ref(storage, `profiles/${ authentication.currentUser.uid }`);
+        const uploadSnapshot = await uploadBytes(profilePictureReference, file); 
+
+        const url = await getDownloadURL(uploadSnapshot.ref); 
+    
+        await updateProfile(authentication.currentUser, { photoURL: url })
+
+        const client = await Network.fetchClient(authentication.currentUser); 
+        props.setModal(false); 
+        props.setAppClient(client); 
+
+    }, []); 
+    // #endregion
 
     // #region Component
     return (
@@ -53,17 +141,138 @@ function Profile(props: IProfilePageProperties)
     {
     <>
         <div className="header">
+
+            <label className="profile" htmlFor="pfp">
             <ProfileAvatar clientInfo={ props.client } />
+            </label>
+
+            <input
+                type="file"
+                style={{ display: "none" }}
+                id="pfp"
+                accept=".jpg, .jpeg, .png"
+                onChange={(event) => 
+                {
+                    setProfilePicture(event.target.files[0]); 
+                }}
+            ></input>
 
             <div className="info">
-                <p className="subtitle">{ props.client?.user.displayName ? props.client?.user.displayName : `Anonymous` }</p>
+                <Textfield
+                    readOnly
+                    type={ textfieldType.text }
+                    initialValue={ props.client?.user.isAnonymous ? "Anonymous" : `Unnamed` }
+                    placeholder=""
+                    setValue={ setName }
+                />
 
-                {
-                    props.client.user.email &&
-                    <p className="">{ props.client.user.email }</p>
-                }
+                <Chip
+                    label={ (props.client?.user.isAnonymous) ? `Create account` : `Edit account`}
+                    selected={ false }
+                    onClick={ () => 
+                    {
+                        setShowAuthentication((value) => !value); 
+                    }}
+                />
             </div>
         </div>
+
+        {
+            showAuthentication &&
+            <div id="authentication">
+            <Grid gap={{ x: 1, y: 0.5 }} minItemWidth={ 300 } contentItems=
+            {
+                <>
+                <Textfield
+                error={ emailError }
+                leadIcon={ 
+                    <svg viewBox="0 0 24 25" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M15.3939 12.5C15.3939 11.5999 15.0364 10.7366 14.3999 10.1001C13.7634 9.46365 12.9001 9.10607 12 9.10607C11.0999 9.10607 10.2366 9.46365 9.60012 10.1001C8.96363 10.7366 8.60606 11.5999 8.60606 12.5C8.60606 13.4001 8.96363 14.2634 9.60012 14.8999C10.2366 15.5364 11.0999 15.8939 12 15.8939C12.9001 15.8939 13.7634 15.5364 14.3999 14.8999C15.0364 14.2634 15.3939 13.4001 15.3939 12.5ZM15.3939 12.5V13.7727C15.3939 14.3353 15.6174 14.8749 16.0152 15.2727C16.413 15.6705 16.9526 15.8939 17.5151 15.8939C18.0777 15.8939 18.6173 15.6705 19.0151 15.2727C19.4129 14.8749 19.6364 14.3353 19.6364 13.7727V12.5C19.6364 10.9897 19.1885 9.51327 18.3494 8.25748C17.5103 7.00168 16.3177 6.02291 14.9223 5.44493C13.5269 4.86696 11.9915 4.71573 10.5102 5.01038C9.02891 5.30503 7.66824 6.03232 6.60027 7.10029C5.53231 8.16825 4.80502 9.52892 4.51037 11.0102C4.21572 12.4915 4.36694 14.027 4.94492 15.4223C5.5229 16.8177 6.50167 18.0103 7.75746 18.8494C9.01326 19.6885 10.4897 20.1364 12 20.1364C13.3408 20.1377 14.658 19.7852 15.8182 19.1131" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                }
+                type={ textfieldType.email }
+                placeholder="Set email address"
+                class="border"
+                auditor={ (email: string) => 
+                {
+                    const passed = emailRegex.test(email);
+                    setEmailError(passed ? undefined : `Please enter a valid email address`); 
+
+                    return passed; 
+                }}
+                setValue={ setEmailText }
+                />
+
+                {
+                
+                props.client.user.isAnonymous && 
+                <Textfield
+                leadIcon={
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M18.4917 14.4416C16.775 16.1499 14.3167 16.6749 12.1584 15.9999L8.23337 19.9166C7.95004 20.2083 7.39171 20.3833 6.99171 20.3249L5.17504 20.0749C4.57504 19.9916 4.01671 19.4249 3.92504 18.8249L3.67504 17.0083C3.61671 16.6083 3.80837 16.0499 4.08337 15.7666L8.00004 11.8499C7.33337 9.68327 7.85004 7.22494 9.56671 5.5166C12.025 3.05827 16.0167 3.05827 18.4834 5.5166C20.95 7.97494 20.95 11.9833 18.4917 14.4416Z" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"/>
+                    <path d="M7.7417 16.575L9.65837 18.4916" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"/>
+                    <path d="M14.0833 11.1666C14.7737 11.1666 15.3333 10.607 15.3333 9.91663C15.3333 9.22627 14.7737 8.66663 14.0833 8.66663C13.393 8.66663 12.8333 9.22627 12.8333 9.91663C12.8333 10.607 13.393 11.1666 14.0833 11.1666Z" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                }
+                type={ (hidePassword === true) ? textfieldType.password : textfieldType.text }
+                placeholder="Set password"
+                class="border"
+                setValue={ setPasswordText }
+                error={ passwordError }
+                auditor={(password) => 
+                {
+                    const passed = password.length > 6;
+                    setPasswordError(passed ? undefined : `Password must be at least 6 charachters long`);
+
+                    return passed; 
+                }}
+                trailIcon=
+                {
+                    (hidePassword == true) ? 
+                    <div
+                    onClick={() => 
+                    {
+                        setHidePassword((val) => !val)
+                    }}>
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M15.58 12C15.58 13.98 13.98 15.58 12 15.58C10.02 15.58 8.42004 13.98 8.42004 12C8.42004 10.02 10.02 8.42004 12 8.42004C13.98 8.42004 15.58 10.02 15.58 12Z" strokeLinecap="round" strokeLinejoin="round"/>
+                    <path d="M12 20.27C15.53 20.27 18.82 18.19 21.11 14.59C22.01 13.18 22.01 10.81 21.11 9.39997C18.82 5.79997 15.53 3.71997 12 3.71997C8.46997 3.71997 5.17997 5.79997 2.88997 9.39997C1.98997 10.81 1.98997 13.18 2.88997 14.59C5.17997 18.19 8.46997 20.27 12 20.27Z" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                    </div>
+
+                    : 
+
+                    <div
+                    onClick={ () => 
+                    {
+                        setHidePassword((val) => !val); 
+                    }}
+                    >
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M14.53 9.47004L9.47004 14.53C8.82004 13.88 8.42004 12.99 8.42004 12C8.42004 10.02 10.02 8.42004 12 8.42004C12.99 8.42004 13.88 8.82004 14.53 9.47004Z" strokeLinecap="round" strokeLinejoin="round"/>
+                    <path d="M17.82 5.76998C16.07 4.44998 14.07 3.72998 12 3.72998C8.46997 3.72998 5.17997 5.80998 2.88997 9.40998C1.98997 10.82 1.98997 13.19 2.88997 14.6C3.67997 15.84 4.59997 16.91 5.59997 17.77" strokeLinecap="round" strokeLinejoin="round"/>
+                    <path d="M8.42004 19.5301C9.56004 20.0101 10.77 20.2701 12 20.2701C15.53 20.2701 18.82 18.1901 21.11 14.5901C22.01 13.1801 22.01 10.8101 21.11 9.40005C20.78 8.88005 20.42 8.39005 20.05 7.93005" strokeLinecap="round" strokeLinejoin="round"/>
+                    <path d="M15.5099 12.7C15.2499 14.11 14.0999 15.26 12.6899 15.52" strokeLinecap="round" strokeLinejoin="round"/>
+                    <path d="M9.47 14.53L2 22" strokeLinecap="round" strokeLinejoin="round"/>
+                    <path d="M22 2L14.53 9.47" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                    </div>
+
+                }
+                /> }
+        
+            </>
+            }/>
+
+            <div className="confirm">
+            <button
+            disabled={ !formApproved }
+            onClick={ () => { handleAuthentication() }}
+            >Confirm changes</button>
+            </div>
+
+            </div>
+        }
 
         {
             (pendingOrders.length > 0) ? 
@@ -141,7 +350,7 @@ function ProfileAvatar(props: IProfileAvatarProperties)
             (props.clientInfo?.user?.photoURL) ? 
             <img src={ props.clientInfo.user.photoURL }></img>
             :
-            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path d="M11.9999 12C14.3011 12 16.1666 10.1345 16.1666 7.83329C16.1666 5.53211 14.3011 3.66663 11.9999 3.66663C9.69873 3.66663 7.83325 5.53211 7.83325 7.83329C7.83325 10.1345 9.69873 12 11.9999 12Z" strokeLinecap="round" strokeLinejoin="round"/>
             <path d="M19.1582 20.3333C19.1582 17.1083 15.9499 14.5 11.9999 14.5C8.04988 14.5 4.84155 17.1083 4.84155 20.3333" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>

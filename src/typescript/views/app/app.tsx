@@ -18,6 +18,7 @@ import { toASCII } from "punycode";
 import { cli } from "webpack-dev-server";
 import { resolve } from "node:path/win32";
 
+let dismissCount : number = 0; 
 
 
 enum modalPage
@@ -40,7 +41,14 @@ function App(props: IAppProperties)
     const [client, setClient] = React.useState<Client>(undefined); 
 
     const [page, setPage] = React.useState(modalPage.cart); 
-    const [activeModal, setActiveModal] = React.useState(false); 
+    const [activeModal, setActiveModal] = React.useReducer((_currentState : boolean, newState: boolean) => 
+    {
+        if (newState) { dismissCount ++ }
+        return newState; 
+
+    }, false);
+
+ 
 
     const [categories, setCategories] = React.useState<Category[]>([]); 
     const [cartItems, addToCart] = React.useReducer((items: CartProduct[], info: { dispatchArray?: CartProduct[], product: CartProduct, count: number }) => 
@@ -75,18 +83,19 @@ function App(props: IAppProperties)
 
         onAuthStateChanged(authentication, async (user) => 
         {
+            console.log(`authentication changed`); 
+    
             if (!user)
             {
                 const credential = await signInAnonymously(authentication);
                 await Network.createCartForUser(credential.user.uid); 
                 return; 
             }
-
+    
             const client = await Network.fetchClient(user); 
             setClient(client); 
-
+    
         });
-
 
     }, []); 
 
@@ -108,13 +117,6 @@ function App(props: IAppProperties)
         
     }, []); 
     // #endregion
-
-
-    async function getCatProduct(id: string)
-    {
-        console.log(`getting product: ${ id }`)
-        return await Network.fetchCategoryProducts(id);
-    }
 
     // #region Item Total 
     const itemTotal = React.useMemo<number>(() => 
@@ -151,7 +153,10 @@ function App(props: IAppProperties)
             setCartItems={ addToCart }
             modalActive={ activeModal }
             setModalActive={ setActiveModal } 
+            setApplicationClient={ setClient }
+            dismissedCount={ dismissCount }
         />
+
     </>
     )
     // #endregion
