@@ -8,6 +8,8 @@
 /public/dist
 /src/javascript
 .firebase
+/public/app.js 
+/public/index.html
 
 
 
