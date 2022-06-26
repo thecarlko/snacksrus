@@ -81,23 +81,37 @@ function App(props: IAppProperties)
     {
         setupPage(); 
 
-        onAuthStateChanged(authentication, async (user) => 
+        onAuthStateChanged(authentication, (user: User) => 
         {
-            console.log(`authentication changed`); 
-    
-            if (!user)
-            {
-                const credential = await signInAnonymously(authentication);
-                await Network.createCartForUser(credential.user.uid); 
-                return; 
-            }
-    
-            const client = await Network.fetchClient(user); 
-            setClient(client); 
-    
+            handleAuthenticationChange(user); 
+
         });
 
     }, []); 
+
+    const handleAuthenticationChange = React.useCallback(async (user: User) => 
+    {
+
+        console.log(`authentication changed`); 
+
+        if (!user)
+        {
+            const credential = await signInAnonymously(authentication);
+            await Network.createCartForUser(credential.user.uid); 
+            return; 
+        }
+        
+        console.log(`setting client`); 
+
+        const client = await Network.fetchClient(user); 
+        setClient(client); 
+
+    }, []); 
+
+    React.useEffect(() => 
+    {
+        console.log(client);
+    }, [client]); 
 
     // #region Setup Page 
     const setupPage = React.useCallback( async () => 

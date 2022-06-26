@@ -109,13 +109,14 @@ class Network
         {
             const cred = await linkWithCredential(authentication.currentUser, emailCredential); 
             user = cred.user; 
-
-            authentication.updateCurrentUser(authentication.currentUser);
         }
         catch (error) 
         {
             console.log(`Error upgrading anonymous account: ${ error }`);
         }
+
+        if (!user) { console.error(`Couldnt create a user with the email and password`) }
+        return user; 
 
     }
     // #endregion

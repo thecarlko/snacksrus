@@ -90,16 +90,17 @@ function Profile(props: IProfilePageProperties)
         // #region Anonymous
         if (anonymous)
         { 
-            Network.createAccountEmailPassword(email, password)
-            .then(() => 
-            {
-                setTimeout(() => {
-                    
-                    setShowAuthentication(false);
-                    props.setModal(false);
+            const user = await Network.createAccountEmailPassword(email, password);
 
-                }, 500);
-            })
+            const client = await Network.fetchClient(user); 
+            props.setAppClient(client); 
+
+            setTimeout(() => {
+
+                setShowAuthentication(false);
+                props.setModal(false);
+
+            }, 500);
 
             return; 
         }
@@ -111,8 +112,6 @@ function Profile(props: IProfilePageProperties)
             updatePassword(authentication.currentUser, password); 
 
         } catch (error) { console.log(`Error updating user: ${ error }`) }
-
-
 
 
     }, [props.client, email, password]);
