@@ -24,7 +24,7 @@ interface ITextfieldProperties
     error?: string; 
 
     /** State value of string that the textfield will pass back */
-    setValue: React.Dispatch<React.SetStateAction<string>>; 
+    setValue?: React.Dispatch<React.SetStateAction<string>>; 
 
     leadIcon?: JSX.Element, 
     trailIcon?: JSX.Element, 

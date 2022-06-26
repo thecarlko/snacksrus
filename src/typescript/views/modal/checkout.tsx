@@ -35,6 +35,9 @@ function Checkout(props: ICheckoutProperties)
 {
     const navigate = useNavigate(); 
 
+    const [email, setEmail] = React.useState("");
+    const [password, setPassword] = React.useState(""); 
+
     const [successfulConfirmation, setSuccessfulConfirmation] = React.useState(false); 
     const [hidePassword, setHidePassword] = React.useState(true); 
     const [anonymousCheckout, setAnonymousCheckout] = React.useState(false); 
@@ -172,6 +175,7 @@ function Checkout(props: ICheckoutProperties)
                     type={ textfieldType.email }
                     id="email"
                     class="grid-item"
+                    setValue={ setEmail }
                 />
 
                 <Textfield
@@ -182,6 +186,7 @@ function Checkout(props: ICheckoutProperties)
                         <path d="M14.0833 11.1666C14.7737 11.1666 15.3333 10.607 15.3333 9.91663C15.3333 9.22627 14.7737 8.66663 14.0833 8.66663C13.393 8.66663 12.8333 9.22627 12.8333 9.91663C12.8333 10.607 13.393 11.1666 14.0833 11.1666Z" strokeLinecap="round" strokeLinejoin="round"/>
                         </svg>
                     }
+                    setValue={ setPassword }
                     placeholder="Create a password"
                     type={ hidePassword ? textfieldType.password : textfieldType.text }
                     id="password"
