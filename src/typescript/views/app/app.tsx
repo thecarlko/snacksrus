@@ -92,7 +92,6 @@ function App(props: IAppProperties)
     const handleAuthenticationChange = React.useCallback(async (user: User) => 
     {
 
-        console.log(`authentication changed`); 
 
         if (!user)
         {
@@ -100,8 +99,7 @@ function App(props: IAppProperties)
             await Network.createCartForUser(credential.user.uid); 
             return; 
         }
-        
-        console.log(`setting client`); 
+    
 
         const client = await Network.fetchClient(user); 
         setClient(client); 

@@ -159,10 +159,6 @@ function Checkout(props: ICheckoutProperties)
 
                 { !anonymousCheckout && 
                 <form
-                onSubmit={() => 
-                {
-                    console.log(`submit`); 
-                }}
                 className="body">
                 <Textfield
                     leadIcon=
