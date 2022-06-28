@@ -14,6 +14,9 @@ const rootElement = document.getElementById(`root`);
 
 onload 
 {
+
+
+
     const root = createRoot(rootElement);
     root.render(
         <BrowserRouter>
