@@ -39,8 +39,12 @@
 
 #profile .header > label.profile
 {
+    min-height: 4rem; 
+    max-height: 4rem;
     height: 4rem; 
     width: 4rem;
+    min-width: 4rem; 
+    max-width: 4rem;
 
     border-radius: 100%; 
     border: 1px solid var(--gray);
