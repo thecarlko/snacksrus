@@ -18,7 +18,7 @@
 
 <div align="center">
 
-  <img width="1536" alt="project" src="https://user-images.githubusercontent.com/98195031/174300091-fc78efff-3c50-4457-b67b-1ea639258e2c.png">
+  <img width="1536" alt="project" src="https://user-images.githubusercontent.com/98195031/212464463-486765bd-b43d-472c-9378-40b089a73d68.png">
 
   <h3 align="center">Snacks R Us</h3>
 
