@@ -1,0 +1,236 @@
+
+
+
+/* #region Navigation */
+nav 
+{
+    position: absolute; 
+    top: 0px; 
+    left: 0px; 
+    right: 0px;
+
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    height: 2rem; 
+    margin: 2vh 2vw; 
+
+    z-index: 10; 
+}
+
+nav > section, nav > a
+{
+    display: flex;
+    align-items: center;
+
+    height: 100%;
+    text-decoration: none;
+}
+
+
+
+/* * Leading */
+nav > a.leading, nav > section.trailing div#cart, section.trailing div.profile
+{
+    cursor: pointer; 
+    color: var(--foreground);
+
+}
+
+nav #logo 
+{
+    width: 2.4rem; 
+    height: 2.4rem; 
+}
+
+nav #logo path 
+{
+    fill: var(--foreground); 
+    stroke: none;
+}
+
+nav #logo.back 
+{
+    padding: 0.4rem; 
+}
+
+nav #logo.back path 
+{
+    fill: none;
+    stroke: var(--foreground);
+}
+
+nav > a.leading .wordmark 
+{
+    display: flex;
+    align-items: center;
+}
+
+
+.wordmark p:first-child
+{
+    margin-right: 0.3em;
+    font-family: var(--display);
+    font-size: 1.3em;
+}
+
+/* *Trailing */
+nav > div.trailing 
+{
+    display: flex; 
+    align-items: center; 
+    justify-content: flex-end;
+}
+
+div#cart 
+{
+    display: flex;
+    align-items: center;
+
+    padding: 1px 6px; 
+
+    border: 1px solid var(--foreground); 
+    border-radius: 2rem;
+
+    margin-right: 0.75rem;
+
+    cursor: pointer;
+    pointer-events: all;
+
+}
+
+div#cart.added
+{
+    animation: shake 0.75s cubic-bezier(.36,.07,.19,.97) both;
+    transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+}
+  
+@keyframes shake
+{
+    10%, 90% 
+    {
+        transform: translate3d(-5px, 0, 0);
+    }
+
+    20%, 80% 
+    {
+        transform: translate3d(10px, 0, 0);
+    }
+
+    30%, 50%, 70% 
+    {
+        transform: translate3d(-10px, 0, 0);
+    }
+
+    40%, 60% 
+    {
+        transform: translate3d(5px, 0, 0);
+    }
+}
+
+div#cart #cart-count
+{
+    /* width: 1.5rem; */
+    height: 1.5rem;
+
+    text-align: center;
+    padding: 0px 3px; 
+}
+
+
+/* * Profile Picutre */
+div.profile 
+{
+    height: 2.4rem; 
+    width: 2.4rem;
+
+    background-color: var(--background);
+    border: 1px solid var(--shade); 
+    border-radius: 100%;
+
+    overflow: hidden;
+
+}
+
+div.profile div, div.profile.logged > div.anonymous
+{
+    display: none;
+
+    width: 100%;
+    height: 100%;
+}
+
+div.profile.logged.pfp .image
+{
+    display: block;
+
+}
+
+div.profile.logged.pfp .image img 
+{
+    height: 100%;
+    width: 100%;
+
+    object-fit: cover;
+}
+
+div.profile.logged.initials div.initials
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+div.profile.logged.initials div.initials p
+{
+    font-size: 0.75rem;
+    text-transform: uppercase;
+}
+
+div.profile .anonymous
+{
+    display: block;
+
+    padding: 20%;
+}
+/* #endregion */
+
+
+/* #region Sheet */
+.sheet > .viewport
+{
+    height: 100%; 
+    width: 100%;
+}
+
+#root div.scrollview.sheet > div.viewport > div.content 
+{
+    padding: 0px 8vw; 
+}
+
+@media screen and (max-width: 500px)
+{
+    #root div.scrollview.sheet > div.viewport > div.content 
+    {
+        padding: 0px 1.5rem; 
+    }
+}
+/* #endregion */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
